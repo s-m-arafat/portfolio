@@ -9,7 +9,9 @@ export default function IntroCard() {
     <div className="">
       <Card
         title="{...arafat}"
-        btn={{ val: "Want to know more", path: "/CV.pdf" }}
+        btn={{
+          val: `Want to know more`,
+        }}
       >
         <p className="text-center white px-2 py-2 font-fira text-xs">
           <span className="green">&gt;</span> A problem solver more than a

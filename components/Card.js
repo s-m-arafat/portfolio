@@ -4,7 +4,7 @@ export default function Card(props) {
       <h1 className="text-2xl green text-center font-fira">{props.title}</h1>
       {props.children}
       {props.btn?.val ? (
-        <button className="block bg-orange black-text m-auto p-2 my-3 rounded-2xl font-bold active:scale-95 ease-in-out duration-100">
+        <button className="block bg-badge ring-1 ring-yellow-300 green m-auto p-2 my-3 rounded-2xl font-bold active:bg-orange active:black active:scale-95 ease-in-out duration-100">
           <a href={`${props.btn.path ? props.btn.path : "#"}`}>
             {props.btn.val}
           </a>
