@@ -19,7 +19,7 @@ export default function IntroCard() {
           <span className="green animate-blink font-extrabold">&#9602;</span>
         </p>
 
-        <div className="flex flex-wrap mt-5 md:justify-center">
+        <div className="flex flex-wrap mt-5 md:justify-center white">
           <Badge text="Competitive Programmer" ico={cf} />
           <Badge text="Full-stack Developer" ico={dev} />
           <Badge text=" Feature Writer" ico={writer} />

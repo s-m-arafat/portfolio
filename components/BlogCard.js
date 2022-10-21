@@ -1,20 +1,18 @@
 import Card from "./Card";
+import PostCard from "./PostCard";
 
-export default function BlogCard() {
+export default function BlogCard({ allPostsData }) {
   return (
     <div>
-      <Card title="{...Write-ups}" btn={{ val: "see more" }}>
-        <div className="w-fit border-2 p-10 my-5 m-auto ring-white">
-          Coming soon . . . Till then read my articles on{" "}
-          <a
-            href="https://roar.media/profile/arafat/articles/"
-            className="green underline target:new"
-            target="_blank"
-            rel="noreferrer"
-          >
-            Roar Bangla
-          </a>
-        </div>
+      <Card title="{...Write-ups}" btn={{ val: "see more", path: "/posts" }}>
+        <section>
+          <ul className="space-y-3 mt-3">
+            {allPostsData.map((postData) => (
+              //console.log(postData)
+              <PostCard postData={postData} key={postData.id}/>
+            ))}
+          </ul>
+        </section>
       </Card>
     </div>
   );
