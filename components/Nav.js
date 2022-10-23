@@ -58,7 +58,7 @@ export default function Nav() {
         </div>
       </div>
       <div
-        className={`${overlay} top-0 h-screen w-full z-20 fixed bg-black/10 backdrop-blur-sm duration-200 ease-linear`}
+        className={`${overlay} top-0 h-screen w-full z-20 fixed bg-black/10 backdrop-blur-sm`}
         onClick={handleClick}
       ></div>
     </>
