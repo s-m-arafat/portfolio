@@ -5,10 +5,11 @@ import { IconContext } from "react-icons/lib";
 import { VscFilePdf } from "react-icons/vsc";
 import Link from "next/link";
 import { useState } from "react";
+import { navLinks } from "../lib/const";
 
 export default function Nav() {
   const [toggle, setToggle] = useState(false);
-  const [cls, setCls] = useState("-left-2/3");
+  const [cls, setCls] = useState("-left-3/4");
   const [overlay, setOverlay] = useState("hidden");
   const handleClick = () => {
     if (!toggle) {
@@ -17,20 +18,27 @@ export default function Nav() {
       setOverlay(" ");
     } else {
       setToggle(false);
-      setCls("-left-2/3");
+      setCls("-left-3/4");
       setOverlay("hidden");
     }
   };
 
   return (
     <>
+      {/* side nav mobile starts */}
       <div
-        className={`${cls} h-screen w-2/3 top-0 bg-white/10 fixed z-30 backdrop-blur-md ease-in duration-200`}
+        className={`z-30 ${cls} fixed h-screen w-3/4 top-0 bg-slate-200/20 backdrop-blur-md ease-in duration-200`}
       >
-        <Link href="/">
-          <a className="text-white font-bold z-30 p-5">Home</a>
-        </Link>
+        {/* nav menu */}
+        <div className="w-fit my-[25%] m-auto space-y-3" onClick={handleClick}>
+          {navLinks.map((nav) => (
+            <Link href={`${nav.path}`} key={nav.text}>
+              <a className="block text-2xl font-semibold white hover:bg-black/30 hover:rounded-md py-2 px-3">{nav.text}</a>
+            </Link>
+          ))}
+        </div>
       </div>
+      {/* side nav mobile ends */}
       <div className="w-full h-20 flex justify-between p-5 lg:pl-40">
         {/* Logo at start */}
         <div className="w-1/2 md:w-2/3">
@@ -41,7 +49,7 @@ export default function Nav() {
         {/* menu bar hidden at large screen */}
         <div className="flex w-1/2 md:w-1/3 justify-between ">
           <button className="px-2 black rounded-md font-extrabold block bg-orange h-8 active:scale-90 ease-in-out duration-100 text-center">
-            <a href="/CV.pdf">
+            <a href="/Resume.pdf">
               Resume
               <IconContext.Provider
                 value={{ className: "inline ml-2", size: "1em" }}

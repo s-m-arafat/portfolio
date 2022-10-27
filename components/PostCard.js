@@ -7,7 +7,7 @@ export default function PostCard({ postData }) {
   const { id, date, title, desc, tags } = postData;
   return (
     <li>
-      <div className="bg-slate-800 rounded-2xl m-auto p-3">
+      <div className="bg-black/20 rounded-2xl m-auto p-3">
         <div className="pt-3 pb-1">
           <Link href={`posts/${id}`}>
             <a className="orange text-xl font-semibold">{title}</a>

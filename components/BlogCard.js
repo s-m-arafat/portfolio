@@ -4,7 +4,7 @@ import PostCard from "./PostCard";
 export default function BlogCard({ allPostsData }) {
   return (
     <div>
-      <Card title="{...Write-ups}" btn={{ val: "see more", path: "/posts" }}>
+      <Card title="{...write-ups}" btn={{ val: "see more", path: "/posts" }}>
         <section>
           <ul className="space-y-3 mt-3">
             {allPostsData.map((postData) => (

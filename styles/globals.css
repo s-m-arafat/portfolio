@@ -42,10 +42,6 @@
   .bg-postCard {
     background: #353535;
   }
-  .card-btn{
-    background: rgba(0, 0, 255, 0.15);
-    color: skyblue;
-  }
 }
 
 html,
@@ -61,4 +57,14 @@ a {
 
 * {
   box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+  /* -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none; */
 }
+/* Link:focus, a:focus {
+  outline: none !important;
+} */
