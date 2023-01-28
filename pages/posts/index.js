@@ -1,9 +1,9 @@
-import Link from "next/link";
+import React from 'react'
 
-export default function PostPage() {
+export default function Posts() {
   return (
-    <div className="white underline">
-      <Link href="/">{"< back to home"}</Link>
+    <div className="white">
+      posts
     </div>
   );
 }

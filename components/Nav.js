@@ -26,24 +26,28 @@ export default function Nav() {
   return (
     <>
       {/* side nav mobile starts */}
-      <div
-        className={`z-30 ${cls} fixed h-screen w-3/4 top-0 bg-slate-200/20 backdrop-blur-md ease-in duration-200`}
+      <nav
+        className={`z-30 ${cls} fixed h-screen w-3/4 top-0 bg-slate-800/20 backdrop-blur-lg ease-in duration-200`}
       >
         {/* nav menu */}
-        <div className="w-fit my-[25%] m-auto space-y-3" onClick={handleClick}>
+        <div className="w-fit my-[25%] m-auto space-y-2" onClick={handleClick}>
           {navLinks.map((nav) => (
             <Link href={`${nav.path}`} key={nav.text}>
-              <a className="block text-2xl font-semibold white hover:bg-black/30 hover:rounded-md py-2 px-3">{nav.text}</a>
+              <a className="block text-2xl font-semibold green bg-slate-900/30 hover:bg-black/30 hover:rounded-md py-2 px-3">
+                {nav.text}
+              </a>
             </Link>
           ))}
         </div>
-      </div>
+      </nav>
       {/* side nav mobile ends */}
       <div className="w-full h-20 flex justify-between p-5 lg:pl-40">
         {/* Logo at start */}
-        <div className="w-1/2 md:w-2/3">
-          <Link href="/">
-            <Image src={logo} alt="logo" />
+        <div className="w-1/2 md:w-2/3 ">
+          <Link href="/" passHref>
+            <a>
+              <Image src={logo} alt="logo" className="cursor-pointer" />
+            </a>
           </Link>
         </div>
         {/* menu bar hidden at large screen */}
@@ -60,7 +64,7 @@ export default function Nav() {
           </button>
           <div className="h-8 z-10" onClick={handleClick}>
             <IconContext.Provider value={{ className: "green", size: "2em" }}>
-              <AiOutlineMenu className="md:hidden active:scale-90 ease-in-out duration-100" />
+              <AiOutlineMenu className="md:hidden active:scale-90 ease-in-out duration-100 cursor-pointer" />
             </IconContext.Provider>
           </div>
         </div>

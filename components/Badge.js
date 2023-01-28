@@ -1,15 +1,17 @@
 import Image from "next/image";
 
-export default function Badge(props) {
-  return (
-    <div className="flex flex-row bg-slate-900 m-1 w-fit px-2 py-1 rounded-lg space-x-2">
-      {props.ico ? (
-        <div className="m-auto h-6 w-6">
-          <Image src={props.ico} alt="icon" width={24} height={24} />
-        </div>
-      ) : null}
+export default function Badge({ bg, icon, children, hideText }) {
+  const placeIcon = <Image src={icon} height="24" width="24" alt="icon" />;
 
-      <span className="inline m-auto">{props.text}</span>
+  return (
+    <div
+      className={`flex ${
+        bg ? bg : "bg-slate-800/60"
+      } rounded-full p-2 w-fit`}
+    >
+      {icon ? placeIcon : null}
+
+      <div className={`${hideText ? "hidden lg:block font-semibold white pr-2" : null} pl-2`}>{children}</div>
     </div>
   );
 }

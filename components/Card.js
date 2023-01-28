@@ -1,21 +1,10 @@
-import Link from "next/link";
+import React from "react";
 
-export default function Card(props) {
+export default function Card({ title, children }) {
   return (
-    <div className="text-white bg-card w-[97%] p-1 m-auto rounded-xl">
-      <h1 className="text-2xl green text-center font-fira leading-tight tracking-tighter">
-        {props.title}
-      </h1>
-      {props.children}
-      <div className={`${props.btn?.hidden === true ? "lg:hidden" : ""}`}>
-        {props.btn?.val ? (
-          <Link href={`${props.btn.path ? props.btn.path : "#"}`} >
-            <button className="block bg-black/20 m-auto py-1 px-2 my-3 font-light text-blue-400 text-sm tracking-wide rounded-md ring-2 ring-gray-600 active:ring-1 active:scale-95 ease-in-out duration-100">
-              {props.btn.val}
-            </button>
-          </Link>
-        ) : null}
-      </div>
+    <div className="mt-5 bg-gray-900/50 w-[98%] m-auto">
+      <h1 className="green text-3xl tracking-tightest text-center font-fira">{title}</h1>
+      <section>{children}</section>
     </div>
   );
 }

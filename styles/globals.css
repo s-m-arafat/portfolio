@@ -8,7 +8,15 @@
     font-family: "baloo 2", "Noto Sans Bengali", system-ui, sans-serif;
   }
   body {
+    min-height: 100vh;
+    position: relative;
     background-color: #151515;
+  }
+  body::after {
+    margin-top: 2rem;
+    content: '';
+    display: block;
+    height: 6rem; /* Set same as footer's height */
   }
   .font-fira {
     font-family: "Fira Code";
@@ -31,7 +39,7 @@
     background-color: #34a853;
   }
   .bg-card {
-    background-color: #242424;
+    /* background-color: #242424; */
   }
   .bg-badge {
     background-color: #3a3a3a;

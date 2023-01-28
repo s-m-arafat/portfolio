@@ -15,13 +15,11 @@ module.exports = {
             opacity: 1,
           },
           "50%": {
-            opacity: 0, 
+            opacity: 0,
           },
         },
       },
     },
   },
-  plugins: [
-    require('@tailwindcss/typography'),
-  ],
-}
+  plugins: [require("@tailwindcss/typography")],
+};
