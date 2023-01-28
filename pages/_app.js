@@ -8,7 +8,6 @@ function MyApp({ Component, pageProps }) {
   return (
     <>
       <Script
-        async
         src="https://www.googletagmanager.com/gtag/js?id=G-ZFHK8EKX3T"
         strategy="afterInteractive"
       />
