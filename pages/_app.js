@@ -12,11 +12,8 @@ function MyApp({ Component, pageProps }) {
         strategy="afterInteractive"
       />
       <Script id="google-analytics" strategy="afterInteractive">
-        {`window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-ZFHK8EKX3T');`}
+        {`window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments);}gtag('js', new Date());
+gtag('config', 'G-ZFHK8EKX3T');`}
       </Script>
       <Nav />
       <Component {...pageProps} />

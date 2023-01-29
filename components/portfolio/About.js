@@ -4,6 +4,8 @@ import Link from "next/link";
 import Badge from "../Badge";
 import profile from "./profile.jpg";
 import { sociallinks } from "../../lib/const";
+import { FaQuoteLeft } from "react-icons/fa";
+import { IconContext } from "react-icons/lib";
 
 const About = () => {
   return (
@@ -50,15 +52,20 @@ const About = () => {
           ))}
         </div>
       </section>
-      <section className="lg:w-1/2 p-4 bg-black/20">
-        <p className="w-full px-1 lg:px-5 white leading-2 lg:leading-10 tracking-wider font-thin text-lg lg:text-lg">
-          As a competitive programmer and full-stack web developer, I have a
-          strong background in computer science and a passion for
-          problem-solving. I have experience in various programming languages,
-          including C++ and JavaScript, and have developed a range of web
-          applications using modern frameworks and technologies like React.JS,
-          Next.JS, ExpressJS. I excel in fast-paced, high-pressure environments
-          and am always looking for new challenges to tackle.
+      <section className="lg:w-1/2 p-4 bg-black/20 flex items-center justify-center">
+        <p className="px-1 lg:px-5 white leading-2 lg:leading-10 tracking-wider font-thin text-lg lg:text-lg">
+          <IconContext.Provider value={{ className: "green", size: "2em" }}>
+            <FaQuoteLeft />
+          </IconContext.Provider>
+          <span>
+            As a competitive programmer and full-stack web developer, I have a
+            strong background in computer science and a passion for
+            problem-solving. I have experience in various programming languages,
+            including C++ and JavaScript, and have developed a range of web
+            applications using modern frameworks and technologies like React.JS,
+            Next.JS, ExpressJS. I excel in fast-paced, high-pressure
+            environments and am always looking for new challenges to tackle.
+          </span>
         </p>
       </section>
     </section>
