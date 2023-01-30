@@ -7,7 +7,7 @@ module.exports = {
   theme: {
     extend: {
       animation: {
-        blink: "blink 0.5s ease-in-out infinite",
+        blink: "blink 0.8s 7",
       },
       keyframes: {
         blink: {

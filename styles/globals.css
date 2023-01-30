@@ -14,7 +14,7 @@
   }
   body::after {
     margin-top: 2rem;
-    content: '';
+    content: "";
     display: block;
     height: 6rem; /* Set same as footer's height */
   }
@@ -51,7 +51,6 @@
     background: #353535;
   }
 }
-
 html,
 body {
   padding: 0;
