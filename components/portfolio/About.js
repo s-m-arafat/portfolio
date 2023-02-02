@@ -10,7 +10,7 @@ import { useEffect, useState } from "react";
 const About = () => {
   const introText = `  Hi, I am a Competitive programmer and FullStack Developer with a passion for Writing.`;
 
-  const [text, setText] = useState("");
+  const [text, setText] = useState(" ");
 
   useEffect(() => {
     let index = 0;
@@ -30,8 +30,11 @@ const About = () => {
   }, [introText]);
 
   return (
-    <section className="flex flex-col lg:flex-row bg-slate-800/30">
-      <section className="lg:flex pt-5 pb-5 lg:w-1/2">
+    <section
+      className={`flex flex-col lg:flex-row bg-portfolio-hero-sm lg:bg-portfolio-hero-lg bg-cover bg-center md:bg-center bg-origin-border bg-blend-overlay bg-slate-900/30`}
+    >
+      {/* left intro */}
+      <section className="lg:flex pt-5 pb-5 lg:w-1/2 bg-black bg-opacity-80">
         <div className="lg:w-[80%]">
           <div className="rounded-full ring-2 ring-green-500 ring-offset-4 ring-offset-green-800 h-48 w-48 m-auto">
             <Image
@@ -49,7 +52,7 @@ const About = () => {
             <div className="text-3xl font-bold text-amber-400">
               Shakil Mahmud Arafat
             </div>
-            <p className=" text-lg lg:text-xl font-medium my-4 mx-3 text-slate-300 text-left tracking-wider border-l-4 border-green-500 p-2 lg:w-10/12 lg:ml-10">
+            <p className=" text-lg h-24 md:h-20 lg:h-16  lg:text-xl font-medium my-4 mx-3 text-slate-300 text-left tracking-wider border-l-4 border-green-500 p-2 lg:w-10/12 lg:ml-10">
               {text}
               <span className="text-slate-400 animate-blink"> █</span>
             </p>
@@ -63,11 +66,11 @@ const About = () => {
               rel="noopener noreferrer"
               href={`${eachLink.link}`}
               key={eachLink.text}
-              className="flex items-center justify-center rounded-full hover:shadow-md hover:shadow-emerald-500/20 transition-shadow duration-300"
+              className="flex items-center justify-center rounded-full hover:shadow-md hover:bg-green-900/20 transition-shadow duration-300 tracking-wider"
             >
               <Badge
                 icon={eachLink.icon}
-                bg="bg-green-700/20"
+                bg="bg-green-800/20"
                 hideText={eachLink.hideText}
               >
                 {eachLink.text}
@@ -76,7 +79,9 @@ const About = () => {
           ))}
         </div>
       </section>
-      <section className="lg:w-1/2 p-4 bg-black/20 flex items-center justify-center">
+
+      {/* right intro */}
+      <section className="lg:w-1/2 p-4  flex items-center justify-center bg-black bg-opacity-[.80]">
         <p className="px-1 h-fit lg:px-5 white leading-2 lg:leading-10 tracking-wider font-thin text-lg lg:text-lg ">
           <IconContext.Provider value={{ className: "green", size: "2em" }}>
             <FaQuoteLeft />

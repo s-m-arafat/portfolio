@@ -59,11 +59,11 @@ export default function Nav() {
         </div>
 
         {/* desktop nav */}
-        <nav className="text-slate-300 hidden md:flex">
+        <nav className="text-slate-300 space-x-6 hidden md:flex">
           {navLinks.map((nav) => (
             <Link href={`${nav.path}`} key={nav.text}>
               <a
-                className={`px-2 h-fit font-bold tracking-wider leading-loose ${
+                className={`h-fit tracking-wider leading-loose text-lg ${
                   router.pathname === nav.path ? "text-green-400" : ""
                 }`}
               >
