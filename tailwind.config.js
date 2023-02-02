@@ -20,8 +20,8 @@ module.exports = {
         },
       },
       backgroundImage: {
-        "portfolio-hero-lg": "url('./../assets/bg-3.png')",
-        "portfolio-hero-sm": "url('./../assets/bg-mobile-2.jpg')",
+        "portfolio-hero-lg": "url('/bg-3.png')",
+        "portfolio-hero-sm": "url('/bg-mobile-2.jpg')",
       },
     },
   },
