@@ -1,6 +1,5 @@
 import Head from "next/head";
 import Link from "next/link";
-import Construction from "../components/Construction";
 import IntroCard from "../components/Home/IntroCard";
 
 export default function Home() {

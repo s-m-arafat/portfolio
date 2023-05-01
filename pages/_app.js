@@ -1,8 +1,10 @@
 import Script from "next/script";
-import Construction from "../components/Construction";
 import Footer from "../components/Footer";
 import Nav from "../components/Nav";
 import "../styles/globals.css";
+
+// Mantine
+import { MantineProvider } from "@mantine/core";
 
 function MyApp({ Component, pageProps }) {
   return (
@@ -15,10 +17,15 @@ function MyApp({ Component, pageProps }) {
         {`window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments);}gtag('js', new Date());
 gtag('config', 'G-ZFHK8EKX3T');`}
       </Script>
-      <Nav />
-      <Component {...pageProps} />
-      <Construction />
-      <Footer />
+      <MantineProvider
+        theme={{
+          colorScheme: "dark",
+        }}
+      >
+        <Nav />
+        <Component {...pageProps} />
+        <Footer />
+      </MantineProvider>
     </>
   );
 }

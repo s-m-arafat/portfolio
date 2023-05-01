@@ -74,8 +74,8 @@ export default function Nav() {
         </nav>
 
         {/* menu bar hidden at large screen */}
-        <div className="flex space-x-6">
-          <button className="px-2 black rounded-md font-extrabold block bg-orange h-8 active:scale-90 ease-in-out duration-100 text-center">
+        <div className="flex spaace-x-6">
+          {/* <button className="px-2 black rounded-md font-extrabold block bg-orange h-8 active:scale-90 ease-in-out duration-100 text-center">
             <a href="/Resume.pdf">
               Resume
               <IconContext.Provider
@@ -84,9 +84,9 @@ export default function Nav() {
                 <VscFilePdf />
               </IconContext.Provider>
             </a>
-          </button>
+          </button> */}
           <div className="h-8 z-10" onClick={handleClick}>
-            <IconContext.Provider value={{ className: "green", size: "2em" }}>
+            <IconContext.Provider value={{ className: "text-green", size: "2em" }}>
               <AiOutlineMenu className="md:hidden active:scale-90 ease-in-out duration-100 cursor-pointer" />
             </IconContext.Provider>
           </div>
