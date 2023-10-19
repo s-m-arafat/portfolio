@@ -8,76 +8,12 @@
 
 @layer base {
   html {
-    font-family: "baloo 2", "Noto Sans Bengali", system-ui, sans-serif;
+    font-family: system-ui, sans-serif;
   }
   body {
     min-height: 100vh;
     position: relative;
-    background-color: #151515;
-  }
-  body::after {
-    margin-top: 2rem;
-    content: "";
-    display: block;
-    height: 6rem; /* Set same as footer's height */
-  }
-  .font-fira {
-    font-family: "Fira Code";
-  }
-  .font-play {
-    font-family: "Play";
-  }
-  .font-montserrat {
-    font-family: "Montserrat";
-  }
-  .font-rubik{
-    font-family: "Rubik";
-  }
-  /* text colors */
-  .text-black {
-    color: #3a3a3a;
-  }
-  .text-green {
-    color: #34a853;
-  }
-  .text-white {
-    color: #d7d7d7;
-  }
-  .text-yellow {
-    color: #fbbc04;
-  }
-  /* bg colors */
-  .bg-green {
-    background-color: #34a853;
-  }
-  .bg-yellow {
-    background-color: #fbbc04;
-  }
-  .bg-dark {
-    background-color: #1e1e1e;
+    /* background-color: #212224; */
+    /* color: aliceblue; */
   }
 }
-html,
-body {
-  padding: 0;
-  margin: 0;
-}
-
-a {
-  color: inherit;
-  text-decoration: none;
-}
-
-* {
-  box-sizing: border-box;
-  -webkit-tap-highlight-color: transparent;
-  /* -webkit-touch-callout: none;
-  -webkit-user-select: none;
-  -khtml-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none; */
-}
-/* Link:focus, a:focus {
-  outline: none !important;
-} */

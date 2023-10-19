@@ -1,6 +1,6 @@
 import Head from "next/head";
 import Link from "next/link";
-import IntroCard from "../components/Home/IntroCard";
+
 
 export default function Home() {
   return (
@@ -16,7 +16,6 @@ export default function Home() {
 
       <main className="flex flex-col space-y-3">
         <div className="lg:hidden">
-          <IntroCard />
         </div>
         <div className="p-5 text-lg lg:text-2xl font-bold bg-orange-400 rounded-2xl w-fit m-auto text-center">
           <Link href="/portfolio">
