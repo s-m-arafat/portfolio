@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-
+import Image from "next/image";
 const ThemeSwitcher = () => {
   const [isDarkMode, setIsDarkMode] = useState(false);
 
@@ -15,11 +15,16 @@ const ThemeSwitcher = () => {
     document.documentElement.classList.toggle("dark", newTheme === "dark"); // Use newTheme here
     setIsDarkMode(!isDarkMode);
   };
-  
 
   return (
-    <button onClick={toggleTheme}>
-      {isDarkMode ? "Light Mode" : "Dark Mode"}
+    // flex added to avoid extra space below the image
+    <button onClick={toggleTheme} className="flex">
+      <Image
+        alt="theme icon"
+        width={30}
+        height={30}
+        src={isDarkMode ? "/icons/sun.png" : "/icons/moon.png"}
+      />
     </button>
   );
 };

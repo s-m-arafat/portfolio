@@ -16,4 +16,11 @@
     /* background-color: #212224; */
     /* color: aliceblue; */
   }
+  input,
+  textarea,
+  button,
+  select,
+  a {
+    -webkit-tap-highlight-color: transparent;
+  }
 }
