@@ -171,7 +171,7 @@ export default function Portfolio() {
       <div className="w-full flex flex-col lg:flex-row items-center mt-4">
         <div className="w-1/2 bg-whte flex justify-center">
           <Image
-            src="/images/profile.jpeg"
+            src="/images/profileimage.jpeg"
             height={300}
             width={300}
             alt="profile image of arafat"
