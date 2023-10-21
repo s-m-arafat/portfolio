@@ -16,6 +16,10 @@
     /* background-color: #212224; */
     /* color: aliceblue; */
   }
+  @font-face {
+    
+    font-display: swap;
+  }
   input,
   textarea,
   button,
