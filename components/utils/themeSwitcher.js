@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import Image from "next/image";
+
 const ThemeSwitcher = () => {
   const [isDarkMode, setIsDarkMode] = useState(false);
   const sun = (
@@ -31,8 +31,8 @@ const ThemeSwitcher = () => {
       fill="none"
     >
       <path
-        fill-rule="evenodd"
-        clip-rule="evenodd"
+        fillRule="evenodd"
+        clipRule="evenodd"
         d="M79.897 57.9277C74.1318 62.3595 66.8789 65 59 65C40.2222 65 25 50.0015 25 31.5C25 22.5797 28.5386 14.4737 34.3081 8.47036C14.8794 11.451 0 28.2378 0 48.5C0 70.8675 18.1323 89 40.5 89C59.6216 89 75.6484 75.7483 79.897 57.9277Z"
         fill="#151515"
       />

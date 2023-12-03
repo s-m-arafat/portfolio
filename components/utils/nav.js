@@ -7,30 +7,8 @@ import { useEffect, useState } from "react";
 
 // Navigation items array of objects.
 // Should be updated with backend data, in a later integration.
+import { navItems } from "../../lib/data";
 
-const navItems = [
-  {
-    name: "Home",
-    href: "/",
-  },
-  {
-    name: "Posts",
-    href: "/posts",
-  },
-
-  {
-    name: "Activities",
-    href: "/activities",
-  },
-  {
-    name: "Portfolio",
-    href: "/portfolio",
-  },
-  {
-    name: "Contact",
-    href: "/contact",
-  },
-];
 
 // Main Navigation component
 export default function Nav() {
@@ -61,7 +39,7 @@ export default function Nav() {
                 {item.name}
                 {/* Link active indicator border bottom */}
                 <span
-                  className={`md:w-[90%] md:mx-0 absolute inset-x-1 -bottom-px md:h-[2px] md:dark:h-[1.5px] ${
+                  className={`md:w-[90%] md:mx-0 absolute inset-x-1 -bottom-px md:h-[1.5px] md:dark:h-[1px] ${
                     item.href.toLowerCase() === currentPath
                       ? "bg-gradient-to-r dark:from-teal-400/0  dark:via-green-400 dark:to-teal-400/0 from-teal-500/0 via-green-400 to-teal-500/0"
                       : ""
