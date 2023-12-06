@@ -1,10 +1,6 @@
 import Script from "next/script";
 import "../styles/globals.css";
-// core styles shared by all of react-notion-x (required)
-import 'react-notion-x/src/styles.css'
-
-// used for code syntax highlighting (optional)
-import 'prismjs/themes/prism-tomorrow.css'
+// header for entire app
 import Header from "../components/utils/header";
 
 function MyApp({ Component, pageProps }) {
