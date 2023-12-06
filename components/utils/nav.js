@@ -30,22 +30,22 @@ export default function Nav() {
             key={index}
             className={`py-2 md:py-0 ${
               item.href.toLowerCase() != currentPath
-                ? "hover:scale-[1.08] transition duration-200 ease-out hover:ease-in"
+                ? "hover:text-slate-700 dark:hover:text-dark-3"
                 : ""
             }`}
           >
-            <Link href={item.href}>
-              <a className="relative dark:text-dark-1 text-slate-800 px-3 md:px-3 py-[10px] md:py-3 dark:font-light md:text-base">
+            <Link href={item.href} passHref>
+              <span className="relative dark:text-dark-1 text-slate-800 px-3 py-[10px] dark:font-light md:text-base">
                 {item.name}
                 {/* Link active indicator border bottom */}
                 <span
-                  className={`md:w-[90%] md:mx-0 absolute inset-x-1 -bottom-px md:h-[1.5px] md:dark:h-[1px] ${
+                  className={`w-[90%] mx-0 absolute inset-x-1 -bottom-px h-[1.5px] ${
                     item.href.toLowerCase() === currentPath
                       ? "bg-gradient-to-r dark:from-teal-400/0  dark:via-green-400 dark:to-teal-400/0 from-teal-500/0 via-green-400 to-teal-500/0"
                       : ""
                   } `}
                 ></span>
-              </a>
+              </span>
             </Link>
           </li>
         ))}

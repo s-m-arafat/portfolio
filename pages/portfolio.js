@@ -11,6 +11,7 @@ export default function Portfolio() {
       <div className="w-full flex flex-col lg:flex-row items-center mt-4">
         <div className="w-1/2 bg-whte flex justify-center">
           <Image
+            priority
             src="/images/profileimage.jpeg"
             height={300}
             width={300}
@@ -43,7 +44,7 @@ export default function Portfolio() {
         </div>
       </div>
       {/* divider line */}
-      <span className="w-2/3 md:w-1/2 block mt-2 lg:mt-[2.5rem] mx-auto inset-x-1 -bottom-px h-[1px] dark:h-[0.5px] bg-gradient-to-r from-teal-500/0 via-green-400 to-teal"></span>
+      {/* <span className="w-2/3 md:w-1/2 block mt-2 lg:mt-[2.5rem] mx-auto inset-x-1 -bottom-px h-[1px] dark:h-[0.5px] bg-gradient-to-r from-teal-500/0 via-green-400 to-teal"></span> */}
       {/* introductory part ends */}
     </div>
   );
