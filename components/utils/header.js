@@ -18,8 +18,9 @@ export default function header() {
               alt="arafat logo"
               width={50}
               height={50}
-              src={"/images/logo.png"}
+              src={"/images/logo.svg"}
             />
+            <code className="text-xs flex flex-col justify-end"> &#945;lpha</code>
           </span>
         </Link>
       </div>

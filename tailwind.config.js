@@ -31,8 +31,8 @@ module.exports = {
         },
       },
       dropShadow: {
-        customDark: "0 4px 3px rgba(24, 57, 43, 0.3)",
-        customLight: "0 4px 3px rgba(0, 0, 0, 0.2)",
+        customDark: "0 4px 3px rgba(24, 57, 43, 0.1)",
+        customLight: "0 4px 3px rgba(0, 0, 0, 0.15)",
       },
     },
   },
