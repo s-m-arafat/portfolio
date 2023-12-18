@@ -9,24 +9,32 @@ module.exports = {
   theme: {
     extend: {
       colors: {
+        nav:"#1B1B1B",
         light: {
           // bg
           primary: "#FFFFFF",
-          // black shades
-          "black-1": "#000000",
-
         },
         dark: {
           // bg
           primary: "#212224",
-          secondary: "#1B1B1B",
+        },
+        white:{
           // white shades
           1: "#FFFFFF",
-          2: "#D9D9D9",
+          2: "#E9E9E9",
           3: "#A5A4A4",
           4: "#6F6F6F",
+        },
+        black:{
+          // black shades
+          1: "#000000",
+          2: "#1F1F1F",
+          3: "#252525",
+          4: "#4D4D4D",
+        },
+        green:{
           // green shades
-          "green-1": "#18392B",
+          1: "#18392B",
 
         },
       },

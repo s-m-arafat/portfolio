@@ -6,7 +6,7 @@ import Header from "../components/utils/header";
 function MyApp({ Component, pageProps }) {
 
   return (
-    <div className="dark:bg-dark-primary text-light-black-1 dark:text-dark-1 bg-light-primary  min-h-screen">
+    <div className="bg-light-primary dark:bg-dark-primary text-black-1 dark:text-white-2  min-h-screen">
       <Script
         src="https://www.googletagmanager.com/gtag/js?id=G-ZFHK8EKX3T"
         strategy="afterInteractive"

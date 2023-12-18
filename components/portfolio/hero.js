@@ -24,7 +24,7 @@ export default function hero() {
             SHAKIL MAHMUD <br />
             ARAFAT
           </h1>
-          <p className=" text-base mt-4 w-full lg:w-2/3 px-6 lg:px-0 dark:text-dark-3">
+          <p className=" text-base mt-4 w-full lg:w-2/3 px-6 lg:px-0 dark:text-white-3">
             Undergrad EEE student with an interest in Machine Learning,
             Programming and VLSI
           </p>

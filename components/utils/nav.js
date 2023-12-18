@@ -23,13 +23,13 @@ export default function Nav() {
 
   return (
     // rounded wrapper
-    <nav className=" w-fit py-2 px-4 rounded-full dark:bg-dark-secondary bg-light-primary dark:ring-dark-green-1 dark:drop-shadow-customDark ring-1 ring-dark-green-1/10 drop-shadow-customLight">
+    <nav className=" w-fit py-2 px-4 rounded-full dark:bg-nav bg-light-primary dark:ring-green-1 dark:drop-shadow-customDark ring-1 ring-green-1/10 drop-shadow-customLight">
       <ul className="flex justify-center items-center  max-w-fit">
         {navItems.map((item, index) => (
           <li key={index}>
             <Link href={item.href} passHref>
               <span
-                className={`mx-2 relative dark:text-dark-1 text-slate-800 py-[10px] dark:font-light ${
+                className={`mx-2 relative text-slate-800 dark:text-white-1 py-[10px] dark:font-light ${
                   item.href.toLowerCase() != currentPath
                     ? "hover:text-green-500 dark:hover:text-green-400"
                     : ""

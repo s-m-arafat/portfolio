@@ -17,7 +17,7 @@ export default function Portfolio() {
       </Head>
       <Hero />
 
-      <div className="">
+      <div className="mt-12">
         <Card
           Timeline
           content={Experience.content}

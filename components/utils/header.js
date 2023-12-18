@@ -7,7 +7,7 @@ import { MenuBtn } from "../../lib/svg";
 
 export default function header() {
   return (
-    <div className="w-full py flex justify-between px-2 lg:px-0 lg:justify-around border-b border-b-light-black-1/10 dark:border-b-dark-1/10">
+    <div className="w-full py flex justify-between px-2 lg:px-0 lg:justify-around border-b border-b-black-1/10 dark:border-b-white-1/10">
       {/* Logo */}
       {/*flex to center the logo*/}
       <div className="w-1/4 flex justify-center items-center">
@@ -20,7 +20,7 @@ export default function header() {
               height={50}
               src={"/images/logo.svg"}
             />
-            <code className="text-xs flex flex-col justify-end"> &#945;lpha</code>
+            <code className="text-xs flex flex-col justify-end">&#945;lpha</code>
           </span>
         </Link>
       </div>
