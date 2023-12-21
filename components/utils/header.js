@@ -1,28 +1,16 @@
 import React from "react";
 import Nav from "./nav";
 import ThemeSwitcher from "./themeSwitcher";
-import Image from "next/image";
-import Link from "next/link";
-import { MenuBtn } from "../../lib/svg";
+import MobileNav from "./mobileNav";
+import Logo from "./logo";
 
 export default function Header() {
   return (
-    <div className="w-full py flex justify-between px-2 lg:px-0 lg:justify-around border-b border-b-black-1/10 dark:border-b-white-1/10">
+    <div className="w-full flex justify-between px-2 lg:px-0 lg:justify-around border-b border-b-black-1/10 dark:border-b-white-1/10">
       {/* Logo */}
       {/*flex to center the logo*/}
       <div className="w-1/4 flex justify-center items-center">
-        <Link href="/" passHref>
-          {/* flex added to remove the bottom padding from the img */}
-          <span className="flex py-1">
-            <Image
-              alt="arafat logo"
-              width={50}
-              height={50}
-              src={"/images/logo.svg"}
-            />
-            <code className="text-xs flex flex-col justify-end">&#945;lpha</code>
-          </span>
-        </Link>
+        <Logo />
       </div>
       {/* Navigation */}
       <div className="w-1/2 hidden lg:flex lg:items-center lg:justify-center ">
@@ -32,7 +20,7 @@ export default function Header() {
       {/* Theme Switcher and ham menu*/}
       <div className="w-1/4 bg-whit text-end flex space-x-5 justify-center items-center">
         <ThemeSwitcher />
-        <button className="lg:hidden">{MenuBtn}</button>
+        <MobileNav />
       </div>
     </div>
   );

@@ -56,7 +56,7 @@ export default function Card({
                       </span>
                     </div>
 
-                    <details className="w-[90%] overflow-hidden bg-zinc-200 dark:bg-black-3 p-1 pl-3 rounded-md ">
+                    <details className="w-[90%] overflow-hidden bg-zinc-200 dark:bg-black-3 p-1 pl-3 rounded-md max-h-8 min-h-8 ">
                       <summary className="text-sm cursor-pointer">
                         Details
                       </summary>
