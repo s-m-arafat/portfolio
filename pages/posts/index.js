@@ -1,6 +1,6 @@
 import React from "react";
 
-
+Posts.title = "Posts";
 export default function Posts() {
 
 

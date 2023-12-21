@@ -21,7 +21,7 @@ module.exports = {
         white:{
           // white shades
           1: "#FFFFFF",
-          2: "#E9E9E9",
+          2: "#E0E0E0",
           3: "#A5A4A4",
           4: "#6F6F6F",
         },

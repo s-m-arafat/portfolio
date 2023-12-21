@@ -4,6 +4,7 @@ import Card from "../components/utils/card";
 import Head from "next/head";
 import { Experience, Education } from "../lib/data";
 
+Portfolio.title = "Portfolio";
 export default function Portfolio() {
   return (
     <div className="flex flex-col ">
@@ -17,7 +18,7 @@ export default function Portfolio() {
       </Head>
       <Hero />
 
-      <div className="mt-12">
+      <section className="mt-20 space-y-10 lg:space-y-16">
         <Card
           Timeline
           content={Experience.content}
@@ -32,7 +33,7 @@ export default function Portfolio() {
           img={Education.img}
           imgPlace="left"
         />
-      </div>
+      </section>
     </div>
   );
 }

@@ -5,7 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { MenuBtn } from "../../lib/svg";
 
-export default function header() {
+export default function Header() {
   return (
     <div className="w-full py flex justify-between px-2 lg:px-0 lg:justify-around border-b border-b-black-1/10 dark:border-b-white-1/10">
       {/* Logo */}

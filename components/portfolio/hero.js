@@ -3,7 +3,7 @@ import Image from "next/image";
 
 import { socials } from "../../lib/data";
 
-export default function hero() {
+export default function Hero() {
   return (
     <div>
       {/* introductory part starts */}

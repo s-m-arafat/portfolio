@@ -17,7 +17,6 @@
     /* color: aliceblue; */
   }
   @font-face {
-    
     font-display: swap;
   }
   input,
@@ -60,3 +59,5 @@ body::-moz-scrollbar-thumb {
 body::-moz-scrollbar-track {
   background-color: #f1f1f1;
 }
+
+
