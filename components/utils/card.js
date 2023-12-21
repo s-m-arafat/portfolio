@@ -28,8 +28,8 @@ export default function Card({
       )}
       {/* main card wrapper*/}
       <div
-        className={`w-[90%] lg:w-1/2 lg:flex lg:${
-          imgPlace === "right" ? "justify-end" : "justify-start"
+        className={`w-[90%] lg:w-1/2 lg:flex ${
+          imgPlace === "right" ? "lg:justify-end" : "lg:justify-start"
         }`}
       >
         {/* design */}
