@@ -18,9 +18,9 @@ export default function Home() {
         <div className="lg:hidden">
         </div>
         <div className="p-5 text-lg lg:text-2xl font-bold bg-orange-400 rounded-2xl w-fit m-auto text-center">
-          <Link href="/portfolio">
+          {/* <Link href="/portfolio">
             <span className="black text-center p-5">View complete portfolio</span>
-          </Link>
+          </Link> */}
         </div>
       </main>
     </div>

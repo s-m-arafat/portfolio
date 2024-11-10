@@ -1,9 +1,11 @@
 import Script from "next/script";
 import "../styles/globals.css";
+import Image from "next/image";
 // header for entire app
 import Header from "../components/utils/header";
 import Footer from "../components/utils/footer";
 import Head from "next/head";
+import construction from "../public/images/under-construction.png";
 
 function MyApp({ Component, pageProps }) {
   return (
@@ -22,6 +24,13 @@ gtag('config', 'G-ZFHK8EKX3T');`}
 
       <Header />
       <Component {...pageProps} />
+      <Image
+        className="m-auto"
+        src={construction}
+        height={"100%"}
+        width={"100%"}
+        alt="under construction site"
+      />
       <Footer />
     </div>
   );
