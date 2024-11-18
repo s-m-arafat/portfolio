@@ -1,27 +1,26 @@
-import React, { useState, useRef, useEffect } from "react";
-import { MenuBtn } from "../../lib/svg";
-import { navItems } from "../../lib/data";
+"use client";
+
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import { useRouter } from "next/router";
+import { usePathname } from "next/navigation";
+import { navItems } from "../lib/data";
+import { MenuBtn } from "../lib/svg";
 
 export default function MobileNav() {
-  const router = useRouter();
+  const pathname = usePathname();
   const [currentPath, setCurrentPath] = useState("");
   const [toggle, setToggle] = useState(false);
 
   useEffect(() => {
-    // get the current link path
-    const path = router.pathname;
-    setCurrentPath(path);
-  }, [router.pathname]);
+    setCurrentPath(pathname);
+  }, [pathname]);
 
   const handleClick = () => {
-    setToggle(!toggle);
+    setToggle((prev) => !prev);
   };
 
   return (
     <div onClick={handleClick}>
-      {/* overlay */}
       <div
         className={`${
           toggle ? "" : "hidden"
@@ -37,8 +36,8 @@ export default function MobileNav() {
             <li key={index}>
               <Link href={item.href} passHref>
                 <span
-                  className={` ${
-                    item.href.toLowerCase() != currentPath
+                  className={`${
+                    item.href.toLowerCase() !== currentPath
                       ? ""
                       : "font-bold border-b border-green-500"
                   }`}
@@ -50,9 +49,7 @@ export default function MobileNav() {
           ))}
         </ul>
       </div>
-      <button className={`lg:hidden hover:cursor-pointer active:scale-90`}>
-        {MenuBtn}
-      </button>
+      <button className="lg:hidden hover:cursor-pointer active:scale-90">{MenuBtn}</button>
     </div>
   );
 }

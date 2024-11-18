@@ -1,11 +1,11 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
+  darkMode: ['selector', '[data-mode="dark"]'],
   content: [
-    "./pages/**/*.{js,jsx,ts,tsx}",
-    "./components/**/*.{js,jsx,ts,tsx}",
+    "./pages/**/*.{js,ts,jsx,tsx,mdx}",
+    "./components/**/*.{js,ts,jsx,tsx,mdx}",
+    "./app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
-  // Enable dark mode based on the 'dark' class
-  darkMode: "class",
   theme: {
     extend: {
       colors: {
@@ -44,5 +44,5 @@ module.exports = {
       },
     },
   },
-  // ...
+  plugins: [],
 };
