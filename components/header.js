@@ -7,7 +7,7 @@ import Logo from "./logo";
 
 export default function Header() {
   return (
-    <div className="w-full flex justify-between px-2 lg:px-0 lg:justify-around border-b border-b-black-1/10 dark:border-b-white-1/10">
+    <div className="w-full flex justify-between px-2 lg:px-0 lg:justify-around border-b border-b-teal-500/10 dark:border-b-teal-500/20">
       {/* Logo */}
       {/*flex to center the logo*/}
       <div className="w-1/4 flex justify-center items-center">

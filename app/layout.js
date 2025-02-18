@@ -1,32 +1,24 @@
-
+// app root layout
+// import global styles and theme provider for dark mode
 import "./globals.css";
-import Image from "next/image";
 import { ThemeProvider } from "next-themes";
 
-// header for entire app
+// header and footer for entire app
 import Header from "../components/header";
 import Footer from "../components/footer";
-import construction from "../public/images/under-construction.png";
+
 export const metadata = {
-  title: "",
-  description: "",
+  title: "Arafat | Home",
+  description: "Arafat's personal website",
 };
 
 export default function RootLayout({ children }) {
   return (
     <html lang="en" suppressHydrationWarning={true}>
-      <body className="bg-light-primary dark:bg-dark-primary text-black-1 dark:text-white-2  min-h-screen pb-24">
-        <ThemeProvider  attribute="data-mode">
+      <body className="flex flex-col bg-white dark:bg-blueGray-dark text-black-1 dark:text-white-2 min-h-screen">
+        <ThemeProvider attribute="data-mode" defaultTheme="system" enableSystem>
           <Header />
-          {/* under construction place holder */}
-          <Image
-            className="m-auto"
-            src={construction}
-            height={"100%"}
-            width={"100%"}
-            alt="under construction site"
-          />
-          <div>{children}</div>
+          <main className="flex-grow">{children}</main>
           <Footer />
         </ThemeProvider>
       </body>

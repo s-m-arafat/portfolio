@@ -1,25 +1,5 @@
-/* @tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
-} */
 @import url("https://fonts.googleapis.com/css2?family=Baloo+2&family=Fira+Code:wght@400;500;600&family=Noto+Sans+Bengali:wght@100;200;300;400;500;600;700;800&family=Play&family=Montserrat:wght@100&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Fira+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 
 @import url("https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 
@@ -29,23 +9,50 @@ body {
 
 @layer base {
   html {
-    font-family: system-ui, sans-serif;
+    font-family: "Fira Sans", sans-serif, system-ui;
   }
+
   body {
     min-height: 100vh;
-    position: relative;
-    /* background-color: #212224; */
-    /* color: aliceblue; */
   }
+
   @font-face {
     font-display: swap;
   }
+
   input,
   textarea,
   button,
   select,
   a {
     -webkit-tap-highlight-color: transparent;
+  }
+}
+/* FADED OVERLAY */
+@layer utilities {
+  .gradient-fade-edges {
+    @apply absolute inset-0 z-10;
+
+    &::before {
+      content: "";
+      @apply absolute inset-0 bg-gradient-to-r from-white via-transparent to-white dark:from-blueGray-dark dark:via-transparent dark:to-blueGray-dark;
+    }
+
+    &::after {
+      content: "";
+      @apply absolute inset-0 bg-gradient-to-t from-white via-transparent to-white dark:from-blueGray-dark  dark:via-transparent dark:to-blueGray-dark;
+    }
+  }
+  /* GRID PATTERN */
+  .grid-pattern {
+    @apply absolute inset-0 -z-10;
+    background-image: linear-gradient(
+        to right,
+        rgb(0 128 128 / 0.05) 1px,
+        transparent 1px
+      ),
+      linear-gradient(to bottom, rgb(0 128 128 / 0.05) 1px, transparent 1px);
+    background-size: 14px 14px;
   }
 }
 
@@ -55,12 +62,15 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: #5d5d5d; /* Change the color of the thumb */
-  border-radius: 6px; /* Round the corners of the thumb */
+  background-color: #5d5d5d;
+  /* Change the color of the thumb */
+  border-radius: 6px;
+  /* Round the corners of the thumb */
 }
 
 ::-webkit-scrollbar-track {
-  background-color: #212224; /* Change the color of the track */
+  background-color: #212224;
+  /* Change the color of the track */
 }
 
 /* For Firefox */
@@ -79,9 +89,4 @@ body::-moz-scrollbar-thumb {
 
 body::-moz-scrollbar-track {
   background-color: #f1f1f1;
-}
-
-details[open]{
-  max-height: 100rem;
-  transition: max-height 0.5s ease-in-out;
 }

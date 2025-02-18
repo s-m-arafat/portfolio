@@ -14,7 +14,7 @@ export default function Logo() {
               height={50}
               src={"/images/logo.svg"}
             />
-            <code className="text-xs flex flex-col justify-end">&#945;lpha</code>
+            <code className="text-xs flex flex-col justify-end">&#945;-Overhaul</code>
           </span>
         </Link>
     </div>

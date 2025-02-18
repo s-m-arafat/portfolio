@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { navItems } from "../lib/data";
-import { MenuBtn } from "../lib/svg";
+import { Menu } from "lucide-react";
 
 export default function MobileNav() {
   const pathname = usePathname();
@@ -24,12 +24,12 @@ export default function MobileNav() {
       <div
         className={`${
           toggle ? "" : "hidden"
-        } z-10 top-0 left-0 h-screen w-full fixed bg-black-1/30 backdrop-blur-lg`}
+        } z-50 top-0 left-0 h-screen w-full fixed bg-blueGray-light/30 backdrop-blur-lg ease-in duration-200`}
       ></div>
       <div
         className={`${
           toggle ? "left-0" : "-left-[70%]"
-        } fixed h-screen w-[70%] z-10 top-0 bg-white-2 dark:bg-black-3 p-2 shadow-lg ease-in duration-200`}
+        } fixed h-screen w-[70%] z-50 top-0 bg-white dark:bg-blueGray-dark/50 p-2 shadow-lg ease-in duration-200`}
       >
         <ul className="flex flex-col justify-center items-center space-y-5 h-1/2 text-2xl">
           {navItems.map((item, index) => (
@@ -49,7 +49,9 @@ export default function MobileNav() {
           ))}
         </ul>
       </div>
-      <button className="lg:hidden hover:cursor-pointer active:scale-90">{MenuBtn}</button>
+      <button className="lg:hidden hover:cursor-pointer active:scale-90">
+        <Menu size={30} className="text-teal-400 text-center mt-2"/>
+      </button>
     </div>
   );
 }

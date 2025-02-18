@@ -14,15 +14,15 @@ export default function Nav() {
   }, [pathname]);
 
   return (
-    <nav className="w-fit py-2 px-4 rounded-full dark:bg-nav bg-light-primary dark:ring-green-1 dark:drop-shadow-customDark ring-1 ring-green-1/10 drop-shadow-customLight">
+    <nav className="w-fit py-2 px-4 rounded-full dark:bg-neutral-950 bg-teal-200/10 dark:ring-green-base ring-1 ring-green-light drop-shadow-lg">
       <ul className="flex justify-center items-center max-w-fit">
         {navItems.map((item, index) => (
           <li key={index}>
             <Link href={item.href} passHref>
               <span
-                className={`mx-2 relative text-slate-800 dark:text-white-1 py-[10px] dark:font-light ${
+                className={`mx-2 relative text-teal-900 dark:text-teal-100 py-[10px] dark:font-light ${
                   item.href.toLowerCase() !== currentPath
-                    ? "hover:text-green-500 dark:hover:text-green-400"
+                    ? "hover:text-cyan-500 dark:hover:text-cyan-500 "
                     : ""
                 }`}
               >
@@ -30,7 +30,7 @@ export default function Nav() {
                 <span
                   className={`w-full mx-0 absolute inset-x-0 -bottom-px h-[1.5px] dark:h-[1px] ${
                     item.href.toLowerCase() === currentPath
-                      ? "bg-gradient-to-r dark:from-teal-400/0 dark:via-green-400 dark:to-teal-400/0 from-teal-500/0 via-green-400 to-teal-500/0"
+                      ? "bg-gradient-to-r dark:from-green-300/0 dark:via-green-300 dark:to-green-300/0 from-green-400/0 via-green-400 to-green-400/0"
                       : ""
                   }`}
                 ></span>

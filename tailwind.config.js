@@ -1,6 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  darkMode: ['selector', '[data-mode="dark"]'],
+  darkMode: ["selector", '[data-mode="dark"]', "class"],
   content: [
     "./pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
@@ -9,40 +9,23 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        nav:"#1B1B1B",
-        light: {
-          // bg
-          primary: "#FFFFFF",
+        blueGray: {
+          light: "#263238",
+          base: "#13191C",
+          dark: "#0F1113",
         },
-        dark: {
-          // bg
-          primary: "#212224",
+        blue: {
+          light: "#2196F3",
+          base: "#0D3C61",
+          dark: "#071E31",
         },
-        white:{
-          // white shades
-          1: "#FFFFFF",
-          2: "#E0E0E0",
-          3: "#A5A4A4",
-          4: "#6F6F6F",
+        green: {
+          light: "#2AB17B",
+          base: "#114731",
+          dark: "#082319",
         },
-        black:{
-          // black shades
-          1: "#000000",
-          2: "#1F1F1F",
-          3: "#252525",
-          4: "#4D4D4D",
-        },
-        green:{
-          // green shades
-          1: "#18392B",
-
-        },
-      },
-      dropShadow: {
-        customDark: "0 4px 3px rgba(24, 57, 43, 0.1)",
-        customLight: "0 4px 3px rgba(0, 0, 0, 0.15)",
       },
     },
   },
-  plugins: [],
+  plugins: [require("tailwindcss-animate")],
 };
