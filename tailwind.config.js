@@ -21,8 +21,28 @@ module.exports = {
         },
         green: {
           light: "#2AB17B",
-          base: "#114731",
-          dark: "#082319",
+          base: "#00C896",
+          dark: "#114731",
+          accent: "#00FFB3",
+        },
+        cyan: {
+          light: "#67e8f9",
+          base: "#06b6d4",
+          dark: "#164e63",
+          accent: "#22d3ee",
+        },
+        white: {
+          DEFAULT: "#ffffff",
+          faded: "#f8fafc"
+        },
+        // Semantic color names for easy use
+        text: {
+          paragraph: "#ffffff",
+          title: "#06b6d4", // cyan-base
+        },
+        bg: {
+          title: "#00C896", // green-base
+          component: "#164e63", // cyan-dark
         },
       },
     },

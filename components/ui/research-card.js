@@ -28,22 +28,22 @@ export default function ResearchCard({
       )}
 
       {/* Title */}
-      <h3 className="text-xl font-semibold text-cyan-300 mb-3 hover:text-cyan-200 transition-colors">
+      <h3 className="text-xl font-semibold text-title mb-3 hover:text-cyan-200 transition-colors">
         {title}
       </h3>
 
       {/* Authors */}
       {authors && (
-        <div className="flex items-center text-sm text-cyan-600 mb-2">
+        <div className="flex items-center text-sm text-paragraph mb-2">
           <Users size={16} className="mr-2" />
           <span>{authors}</span>
         </div>
       )}
 
       {/* Journal and Year */}
-      <div className="flex items-center text-sm text-cyan-600 mb-3 space-x-4">
+      <div className="flex items-center text-sm text-paragraph mb-3 space-x-4">
         {journal && (
-          <span className="font-medium text-cyan-500">{journal}</span>
+          <span className="font-medium text-title">{journal}</span>
         )}
         {year && (
           <div className="flex items-center">
@@ -55,7 +55,7 @@ export default function ResearchCard({
 
       {/* Abstract */}
       {abstract && (
-        <p className="text-cyan-700 text-sm mb-4 line-clamp-4">
+        <p className="text-paragraph text-sm mb-4 line-clamp-4">
           {abstract}
         </p>
       )}

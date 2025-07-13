@@ -90,3 +90,26 @@ body::-moz-scrollbar-thumb {
 body::-moz-scrollbar-track {
   background-color: #f1f1f1;
 }
+
+:root {
+  --color-text-paragraph: #ffffff;
+  --color-text-title: #06b6d4;
+  --color-bg-title: #00C896;
+  --color-bg-component: #164e63;
+  --color-green-accent: #00FFB3;
+  --color-cyan-accent: #22d3ee;
+}
+
+/* Utility classes for semantic color usage */
+.text-paragraph {
+  color: var(--color-text-paragraph) !important;
+}
+.text-title {
+  color: var(--color-text-title) !important;
+}
+.bg-title {
+  background-color: var(--color-bg-title) !important;
+}
+.bg-component {
+  background-color: var(--color-bg-component) !important;
+}

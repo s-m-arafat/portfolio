@@ -14,30 +14,26 @@ export default function Nav() {
   }, [pathname]);
 
   return (
-    <nav className="w-fit py-2 px-4 rounded-full dark:bg-neutral-950 bg-teal-200/10 dark:ring-green-base ring-1 ring-green-light drop-shadow-lg">
-      <ul className="flex justify-center items-center max-w-fit">
-        {navItems.map((item, index) => (
-          <li key={index}>
-            <Link href={item.href} passHref>
-              <span
-                className={`mx-2 relative text-teal-900 dark:text-teal-100 py-[10px] dark:font-light ${
-                  item.href.toLowerCase() !== currentPath
-                    ? "hover:text-cyan-500 dark:hover:text-cyan-500 "
-                    : ""
-                }`}
-              >
-                {item.name}
+    <nav className="w-fit py-2 px-6 rounded-full bg-white/5 dark:bg-neutral-950 border border-cyan-800/20 backdrop-blur-sm">
+      <ul className="flex justify-center items-center gap-2 max-w-fit">
+        {navItems.map((item, index) => {
+          const isActive = item.href.toLowerCase() === currentPath;
+          return (
+            <li key={index}>
+              <Link href={item.href} passHref>
                 <span
-                  className={`w-full mx-0 absolute inset-x-0 -bottom-px h-[1.5px] dark:h-[1px] ${
-                    item.href.toLowerCase() === currentPath
-                      ? "bg-gradient-to-r dark:from-green-300/0 dark:via-green-300 dark:to-green-300/0 from-green-400/0 via-green-400 to-green-400/0"
-                      : ""
-                  }`}
-                ></span>
-              </span>
-            </Link>
-          </li>
-        ))}
+                  className={`px-4 py-2 rounded-3xl font-medium transition-colors duration-200 relative
+                    ${isActive
+                      ? "bg-cyan-500/20 text-cyan-300 border border-cyan-500/30 shadow-sm"
+                      : "text-cyan-700 dark:text-cyan-200 hover:text-green-base hover:bg-cyan-400/10 dark:hover:text-green-300 dark:hover:bg-cyan-900/20 border border-transparent"}
+                  `}
+                >
+                  {item.name}
+                </span>
+              </Link>
+            </li>
+          );
+        })}
       </ul>
     </nav>
   );

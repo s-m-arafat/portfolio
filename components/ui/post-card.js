@@ -28,24 +28,24 @@ export default function PostCard({
       {/* Category */}
       {category && (
         <div className="mb-2">
-          <span className="text-cyan-400 text-sm font-medium">{category}</span>
+          <span className="text-title text-sm font-medium">{category}</span>
         </div>
       )}
 
       {/* Title */}
-      <h3 className="text-xl font-semibold text-cyan-300 mb-3 hover:text-cyan-200 transition-colors">
+      <h3 className="text-xl font-semibold text-title mb-3 hover:text-cyan-200 transition-colors">
         {title}
       </h3>
 
       {/* Excerpt */}
       {excerpt && (
-        <p className="text-cyan-700 text-sm mb-4 line-clamp-3">
+        <p className="text-paragraph text-sm mb-4 line-clamp-3">
           {excerpt}
         </p>
       )}
 
       {/* Meta information */}
-      <div className="flex items-center text-xs text-cyan-600 mb-4 space-x-4">
+      <div className="flex items-center text-xs text-paragraph mb-4 space-x-4">
         {date && (
           <div className="flex items-center">
             <Calendar size={14} className="mr-1" />

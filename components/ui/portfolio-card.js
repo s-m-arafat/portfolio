@@ -20,12 +20,12 @@ export default function PortfolioCard({
       <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between mb-4">
         <div>
           {title && (
-            <h3 className="text-xl font-semibold text-cyan-300 mb-1">
+            <h3 className="text-xl font-semibold text-title mb-1">
               {title}
             </h3>
           )}
           {subtitle && (
-            <p className="text-cyan-600 font-['Fira_Code']">{subtitle}</p>
+            <p className="text-paragraph font-['Fira_Code']">{subtitle}</p>
           )}
         </div>
         {(dateRange || location) && (
@@ -42,7 +42,7 @@ export default function PortfolioCard({
 
       {/* Description */}
       {description && (
-        <div className="text-cyan-700 text-sm mb-4">
+        <div className="text-paragraph text-sm mb-4">
           {Array.isArray(description) ? (
             <ul className="space-y-2">
               {description.map((desc, i) => (

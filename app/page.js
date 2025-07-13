@@ -26,11 +26,11 @@ export default function Home() {
           <div className="grid-pattern" />
           <div className="flex flex-col align-middle">
             <div className="leading-10 antialiased">
-              <p className="text-md text-cyan-800">Hello! I&apos;m</p>
-              <h1 className="text-3xl lg:text-5xl font-bold text-cyan-400">
+              <p className="text-md text-paragraph">Hello! I&apos;m</p>
+              <h1 className="text-3xl lg:text-5xl font-bold text-title">
                 Shakil Mahmud Arafat
               </h1>
-              <p className="text-sm md:text-md text-cyan-700 font-['Fira_Code'] pt-2">
+              <p className="text-sm md:text-md text-paragraph font-['Fira_Code'] pt-2">
                 Welcome to the realm of my ideas and thoughts.
               </p>
             </div>

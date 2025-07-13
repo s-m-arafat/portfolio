@@ -10,10 +10,10 @@ export default function ProjectsPage() {
       <div className="relative pt-10 px-5 lg:px-10">
         <div className="grid-pattern" />
         <div className="relative z-10 max-w-4xl mx-auto">
-          <h1 className="text-3xl lg:text-5xl font-bold text-cyan-400 mb-4">
+          <h1 className="text-3xl lg:text-5xl font-bold text-title mb-4">
             {Projects.name}
           </h1>
-          <p className="text-md text-cyan-700 font-['Fira_Code'] mb-8">
+          <p className="text-md text-paragraph font-['Fira_Code'] mb-8">
             A collection of my projects showcasing skills in software development, 
             hardware design, and machine learning applications.
           </p>
@@ -26,8 +26,8 @@ export default function ProjectsPage() {
         <div className="relative z-10 max-w-4xl mx-auto">
           <div className="flex items-center justify-between mb-6">
             <div className="flex items-center">
-              <Smartphone className="text-cyan-400 mr-3" size={24} />
-              <h2 className="text-2xl font-bold text-cyan-400">All Projects</h2>
+              <Smartphone className="text-title mr-3" size={24} />
+              <h2 className="text-2xl font-bold text-title">All Projects</h2>
             </div>
             <div className="flex items-center space-x-2">
               <Filter className="text-cyan-400" size={20} />
@@ -62,42 +62,42 @@ export default function ProjectsPage() {
         <div className="relative z-10 max-w-4xl mx-auto">
           <div className="flex items-center mb-6">
             <Code className="text-cyan-400 mr-3" size={24} />
-            <h2 className="text-2xl font-bold text-cyan-400">Project Categories</h2>
+            <h2 className="text-2xl font-bold text-title">Project Categories</h2>
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             <div className="bg-white/5 backdrop-blur-sm rounded-lg p-6 border border-cyan-800/20 text-center">
-              <h3 className="text-lg font-semibold text-cyan-300 mb-2">
+              <h3 className="text-lg font-semibold text-title mb-2">
                 Hardware Design
               </h3>
-              <p className="text-cyan-700 text-sm">
+              <p className="text-paragraph text-sm">
                 FPGA, VLSI, and processor design projects
               </p>
             </div>
 
             <div className="bg-white/5 backdrop-blur-sm rounded-lg p-6 border border-cyan-800/20 text-center">
-              <h3 className="text-lg font-semibold text-cyan-300 mb-2">
+              <h3 className="text-lg font-semibold text-title mb-2">
                 Machine Learning
               </h3>
-              <p className="text-cyan-700 text-sm">
+              <p className="text-paragraph text-sm">
                 AI/ML models and computer vision applications
               </p>
             </div>
 
             <div className="bg-white/5 backdrop-blur-sm rounded-lg p-6 border border-cyan-800/20 text-center">
-              <h3 className="text-lg font-semibold text-cyan-300 mb-2">
+              <h3 className="text-lg font-semibold text-title mb-2">
                 Web Development
               </h3>
-              <p className="text-cyan-700 text-sm">
+              <p className="text-paragraph text-sm">
                 Full-stack web applications and APIs
               </p>
             </div>
 
             <div className="bg-white/5 backdrop-blur-sm rounded-lg p-6 border border-cyan-800/20 text-center">
-              <h3 className="text-lg font-semibold text-cyan-300 mb-2">
+              <h3 className="text-lg font-semibold text-title mb-2">
                 Research Projects
               </h3>
-              <p className="text-cyan-700 text-sm">
+              <p className="text-paragraph text-sm">
                 Academic and experimental projects
               </p>
             </div>
@@ -109,10 +109,10 @@ export default function ProjectsPage() {
       <section className="relative px-5 lg:px-10 py-8">
         <div className="grid-pattern" />
         <div className="relative z-10 text-center max-w-4xl mx-auto">
-          <h2 className="text-2xl font-bold text-cyan-400 mb-4">
+          <h2 className="text-2xl font-bold text-title mb-4">
             Let&apos;s Build Something Together
           </h2>
-          <p className="text-cyan-700 mb-6 max-w-2xl mx-auto">
+          <p className="text-paragraph mb-6 max-w-2xl mx-auto">
             I&apos;m always open to new project opportunities and collaborations. 
             Whether you have an idea or need help with an existing project, let&apos;s discuss!
           </p>

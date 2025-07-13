@@ -39,8 +39,8 @@ const IntroCard = () => {
 
           {/* Basic Info */}
           <div className="flex-1">
-            <h2 className="text-xl font-bold">{personalInfo.name}</h2>
-            <p className="text-gray-600 dark:text-white-2">{personalInfo.title}</p>
+            <h2 className="text-xl font-bold text-title">{personalInfo.name}</h2>
+            <p className="text-paragraph">{personalInfo.title}</p>
           </div>
 
           {/* Icons */}
@@ -53,7 +53,7 @@ const IntroCard = () => {
         </div>
 
         {/* Short Bio */}
-        <p className="mt-4 text-gray-700 dark:text-white-2">{personalInfo.shortBio}</p>
+        <p className="mt-4 text-paragraph">{personalInfo.shortBio}</p>
       </div>
 
       {/* Modal */}
