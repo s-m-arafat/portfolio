@@ -22,8 +22,7 @@ const InteractiveAsymptoteCharacter = forwardRef(({
   const [components, setComponents] = useState({
     faceBody: null,
     blush: null,
-    eyes: null,
-    smile: null
+    eyes: null
   });
   
   const [isLoaded, setIsLoaded] = useState(false);
@@ -38,8 +37,7 @@ const InteractiveAsymptoteCharacter = forwardRef(({
       const componentFiles = {
         faceBody: '/asymptote/face-body.svg',
         blush: '/asymptote/blush.svg',
-        eyes: '/asymptote/eyes.svg',
-        smile: '/asymptote/smile.svg'
+        eyes: '/asymptote/eyes.svg'
       };
 
       const loadedComponents = {};
@@ -111,10 +109,23 @@ const InteractiveAsymptoteCharacter = forwardRef(({
   useEffect(() => {
     if (!isLoaded) return;
 
-    // Set up initial animation state
+    // Set up initial animation state and ensure proper initial values
     gsap.set([eyesRef.current, blushRef.current, smileRef.current, faceBodyRef.current], {
       transformOrigin: "center center"
     });
+
+    // Set initial blush opacity
+    gsap.set(blushRef.current, { opacity: 0.9 });
+
+    // Ensure mouth starts in neutral state
+    if (smileRef.current) {
+      const mouth = smileRef.current.querySelector('#morphing-mouth');
+      if (mouth) {
+        mouth.setAttribute('d', 'M 58 70 L 62 70');
+        mouth.setAttribute('fill', 'none');
+        mouth.setAttribute('stroke', '#2E2B3A');
+      }
+    }
 
     // Start idle animations
     if (enableIdleAnimations) {
@@ -154,13 +165,82 @@ const InteractiveAsymptoteCharacter = forwardRef(({
       const rotationX = deltaY * maxRotation;
       const rotationY = deltaX * maxRotation;
 
-      // Eyes follow cursor
+      // Eyes container moves slightly
       gsap.to(eyesRef.current, {
         duration: 0.3,
-        x: deltaX * 2 * interactionIntensity,
-        y: deltaY * 2 * interactionIntensity,
+        x: deltaX * 1.5 * interactionIntensity,
+        y: deltaY * 1.5 * interactionIntensity,
         ease: "power2.out"
       });
+
+      // Eyeballs (pupils, iris, highlights) move more dramatically with natural patterns
+      if (eyesRef.current) {
+        // Different movement intensities for different eye parts
+        const pupils = eyesRef.current.querySelectorAll('.pupil');
+        const irisDetails = eyesRef.current.querySelectorAll('.iris-detail');
+        const highlights = eyesRef.current.querySelectorAll('.highlight');
+        const reflections = eyesRef.current.querySelectorAll('.reflection');
+        
+        // Pupils move the most (main eyeball movement)
+        pupils.forEach(pupil => {
+          const moveX = deltaX * 3.5 * interactionIntensity;
+          const moveY = deltaY * 3.5 * interactionIntensity;
+          const constrainedX = Math.max(-2.5, Math.min(2.5, moveX));
+          const constrainedY = Math.max(-2.5, Math.min(2.5, moveY));
+          
+          gsap.to(pupil, {
+            duration: 0.15,
+            x: constrainedX,
+            y: constrainedY,
+            ease: "power2.out"
+          });
+        });
+        
+        // Iris details move with pupils but slightly less
+        irisDetails.forEach(iris => {
+          const moveX = deltaX * 3 * interactionIntensity;
+          const moveY = deltaY * 3 * interactionIntensity;
+          const constrainedX = Math.max(-2, Math.min(2, moveX));
+          const constrainedY = Math.max(-2, Math.min(2, moveY));
+          
+          gsap.to(iris, {
+            duration: 0.15,
+            x: constrainedX,
+            y: constrainedY,
+            ease: "power2.out"
+          });
+        });
+        
+        // Highlights move more dramatically for realistic light reflection
+        highlights.forEach(highlight => {
+          const moveX = deltaX * 4 * interactionIntensity;
+          const moveY = deltaY * 4 * interactionIntensity;
+          const constrainedX = Math.max(-3, Math.min(3, moveX));
+          const constrainedY = Math.max(-3, Math.min(3, moveY));
+          
+          gsap.to(highlight, {
+            duration: 0.12,
+            x: constrainedX,
+            y: constrainedY,
+            ease: "power2.out"
+          });
+        });
+        
+        // Small reflections move the most for extra sparkle effect
+        reflections.forEach(reflection => {
+          const moveX = deltaX * 4.5 * interactionIntensity;
+          const moveY = deltaY * 4.5 * interactionIntensity;
+          const constrainedX = Math.max(-3.5, Math.min(3.5, moveX));
+          const constrainedY = Math.max(-3.5, Math.min(3.5, moveY));
+          
+          gsap.to(reflection, {
+            duration: 0.1,
+            x: constrainedX,
+            y: constrainedY,
+            ease: "power2.out"
+          });
+        });
+      }
 
       // Face rotates slightly
       gsap.to(faceBodyRef.current, {
@@ -189,6 +269,7 @@ const InteractiveAsymptoteCharacter = forwardRef(({
     };
 
     const handleMouseLeave = () => {
+      // Reset eye container and face position
       gsap.to([eyesRef.current, faceBodyRef.current], {
         duration: 0.5,
         x: 0,
@@ -197,6 +278,38 @@ const InteractiveAsymptoteCharacter = forwardRef(({
         rotationY: 0,
         ease: "elastic.out(1, 0.3)"
       });
+
+      // Reset eyeball positions with natural timing
+      if (eyesRef.current) {
+        const pupils = eyesRef.current.querySelectorAll('.pupil');
+        const irisDetails = eyesRef.current.querySelectorAll('.iris-detail');
+        const highlights = eyesRef.current.querySelectorAll('.highlight');
+        const reflections = eyesRef.current.querySelectorAll('.reflection');
+        
+        // Reset with slightly different timings for natural movement
+        gsap.to(pupils, {
+          duration: 0.4,
+          x: 0,
+          y: 0,
+          ease: "elastic.out(1, 0.3)"
+        });
+        
+        gsap.to(irisDetails, {
+          duration: 0.4,
+          x: 0,
+          y: 0,
+          ease: "elastic.out(1, 0.3)",
+          delay: 0.05
+        });
+        
+        gsap.to([highlights, reflections], {
+          duration: 0.3,
+          x: 0,
+          y: 0,
+          ease: "elastic.out(1, 0.3)",
+          delay: 0.1
+        });
+      }
 
       gsap.to(blushRef.current, {
         duration: 0.3,
@@ -280,11 +393,29 @@ const InteractiveAsymptoteCharacter = forwardRef(({
       setIsInteracting(true);
       stopIdleAnimations();
       
+      // Kill any existing mouth animations to prevent conflicts
+      if (smileRef.current) {
+        const mouth = smileRef.current.querySelector('#morphing-mouth');
+        if (mouth) {
+          gsap.killTweensOf({});
+        }
+      }
+      
       return AsymptoteAnimations.happyAnimation({
         smile: smileRef.current,
         blush: blushRef.current,
         eyes: eyesRef.current
       }).call(() => {
+        // Reset mouth back to neutral after animation
+        if (smileRef.current) {
+          setTimeout(() => {
+            const mouth = smileRef.current.querySelector('#morphing-mouth');
+            if (mouth) {
+              // Smooth morph back to neutral
+              AsymptoteAnimations.morphMouthToNeutral(mouth);
+            }
+          }, 1200); // Reduced wait time for better responsiveness
+        }
         setIsInteracting(false);
         if (enableIdleAnimations) resumeIdleAnimations();
       });
@@ -294,11 +425,29 @@ const InteractiveAsymptoteCharacter = forwardRef(({
       setIsInteracting(true);
       stopIdleAnimations();
       
+      // Kill any existing mouth animations to prevent conflicts
+      if (smileRef.current) {
+        const mouth = smileRef.current.querySelector('#morphing-mouth');
+        if (mouth) {
+          gsap.killTweensOf({});
+        }
+      }
+      
       return AsymptoteAnimations.excitedAnimation({
         container: containerRef.current,
         eyes: eyesRef.current,
         smile: smileRef.current
       }).call(() => {
+        // Reset mouth back to neutral after excited animation
+        if (smileRef.current) {
+          setTimeout(() => {
+            const mouth = smileRef.current.querySelector('#morphing-mouth');
+            if (mouth) {
+              // Smooth morph back to neutral
+              AsymptoteAnimations.morphMouthToNeutral(mouth);
+            }
+          }, 1200); // Reduced wait time for better responsiveness
+        }
         setIsInteracting(false);
         if (enableIdleAnimations) resumeIdleAnimations();
       });
@@ -384,6 +533,36 @@ const InteractiveAsymptoteCharacter = forwardRef(({
         smileRef.current, 
         faceBodyRef.current
       ]);
+      
+      // Reset mouth to neutral state
+      if (smileRef.current) {
+        const mouth = smileRef.current.querySelector('#morphing-mouth');
+        if (mouth) {
+          // Kill all animations first
+          gsap.killTweensOf({});
+          // Set clean neutral state
+          mouth.setAttribute('d', 'M 58 70 L 62 70');
+          mouth.setAttribute('fill', 'none');
+          mouth.setAttribute('stroke', '#2E2B3A');
+          mouth.setAttribute('stroke-width', '3');
+        }
+      }
+      
+      // Reset all transforms and styles
+      gsap.set([containerRef.current, eyesRef.current, blushRef.current, smileRef.current, faceBodyRef.current], {
+        clearProps: "all"
+      });
+      
+      // Reset eyeball positions
+      if (eyesRef.current) {
+        const eyeballElements = eyesRef.current.querySelectorAll('.pupil, .iris-detail, .highlight, .reflection');
+        gsap.set(eyeballElements, {
+          clearProps: "all"
+        });
+      }
+      
+      // Set initial state for blush
+      gsap.set(blushRef.current, { opacity: 0.9 });
       
       // Restart idle animations and blinking after a brief delay
       setTimeout(() => {
@@ -477,18 +656,17 @@ const InteractiveAsymptoteCharacter = forwardRef(({
           />
         )}
         
-        {components.smile && (
-          <g 
-            ref={smileRef}
-            className="component-smile"
-            dangerouslySetInnerHTML={{ 
-              __html: components.smile
-                .replace(/<svg[^>]*>/, '')
-                .replace(/<\/svg>/, '')
-                .replace(/<\?xml[^>]*>/, '')
-            }}
+        {/* Smile component with morphing mouth */}
+        <g ref={smileRef} className="component-smile">
+          <path 
+            id="morphing-mouth"
+            d="M 58 70 L 62 70" 
+            stroke="#2E2B3A" 
+            strokeWidth="3" 
+            strokeLinecap="round" 
+            fill="none"
           />
-        )}
+        </g>
       </svg>
     </div>
   );

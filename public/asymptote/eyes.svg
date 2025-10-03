@@ -1,10 +1,26 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="120" height="120" viewBox="0 0 120 120" role="img" aria-label="Eyes">
   <style>
     .eye { fill: #2E2B3A; }
+    .pupil { fill: #1A1825; }
+    .highlight { fill: #FFFFFF; opacity: 0.8; }
+    .reflection { fill: #FFFFFF; opacity: 0.4; }
+    .iris-detail { fill: #3A3548; }
   </style>
 
-  <!-- eyes -->
-  <ellipse class="eye" cx="50" cy="57" rx="3.4" ry="4.9"/>
-  <ellipse class="eye" cx="70" cy="57" rx="3.4" ry="4.9"/>
+  <!-- left eye -->
+  <rect class="eye" x="41" y="49" width="16" height="16" rx="4" ry="4"/>
+  <rect class="pupil" x="44" y="52" width="10" height="10" rx="3" ry="3"/>
+  <rect class="iris-detail" x="45" y="53" width="8" height="8" rx="2.5" ry="2.5"/>
+  <circle class="highlight" cx="51" cy="57" r="2"/>
+  <circle class="reflection" cx="48" cy="55" r="1"/>
+  <circle class="reflection" cx="53" cy="60" r="0.8"/>
+
+  <!-- right eye -->
+  <rect class="eye" x="63" y="49" width="16" height="16" rx="4" ry="4"/>
+  <rect class="pupil" x="66" y="52" width="10" height="10" rx="3" ry="3"/>
+  <rect class="iris-detail" x="67" y="53" width="8" height="8" rx="2.5" ry="2.5"/>
+  <circle class="highlight" cx="73" cy="57" r="2"/>
+  <circle class="reflection" cx="70" cy="55" r="1"/>
+  <circle class="reflection" cx="75" cy="60" r="0.8"/>
 
 </svg>

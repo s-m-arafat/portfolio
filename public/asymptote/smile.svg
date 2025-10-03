@@ -1,9 +1,36 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="120" height="120" viewBox="0 0 120 120" role="img" aria-label="Smile">
   <style>
-    .mouth { fill: none; stroke: #2E2B3A; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
+    .mouth { 
+      fill: none; 
+      stroke: #2E2B3A; 
+      stroke-width: 3; 
+      stroke-linecap: round; 
+      stroke-linejoin: round;
+      transition: d 0.3s ease-in-out;
+      cursor: pointer;
+    }
   </style>
 
-  <!-- mouth (simple smile) -->
-  <path class="mouth" d="M 52.5 67.5 Q 60 73.5 67.5 67.5" stroke-linecap="round" stroke-width="3" fill="none" />
+  <!-- mouth (initially short flat, morphs based on emotion) -->
+  <path class="mouth" id="mouth" d="M 58 70 L 62 70" stroke-linecap="round" stroke-width="3" fill="none" />
+
+  <script>
+    <![CDATA[
+      let isSmiling = false;
+      const mouth = document.getElementById('mouth');
+      
+      mouth.addEventListener('click', function() {
+        if (!isSmiling) {
+          // Change to smile
+          mouth.setAttribute('d', 'M 56.5 69 Q 60 71.5 63.5 69');
+          isSmiling = true;
+        } else {
+          // Change back to flat
+          mouth.setAttribute('d', 'M 58 70 L 62 70');
+          isSmiling = false;
+        }
+      });
+    ]]>
+  </script>
 
 </svg>
