@@ -12,24 +12,21 @@ export default function Card({
 }) {
   const Icon = icon;
   return (
-    <div className="bg-teal-200/10 dark:bg-neutral-950 shadow-lg dark:shadow-stone-950 min-h-32 w-80 md:w-96 ring-[0.2px] hover:shadow-sm ring-black dark:ring-white rounded-lg">
-      <div className="pt-4 pb-1 px-4">
-        <span className="text-green-light">{icon && icon}</span>
-        <h2 className="text-2xl font-bold text-title">
-          {title}
-        </h2>
-      </div>
-      {/* divider */}
-      <div className="w-full h-0.5 bg-neutral-200 dark:bg-neutral-800"></div>
-      <div className="pb-6 pt-3 px-4">
-        <p className="text-paragraph mt-4">{content}</p>
-        {children}
-        <div
-          className={`${
-            buttonText ? "block " : "hidden "
-          } mt-5 flex justify-center`}
-        >
-          <Button link={link}>{buttonText}</Button>
+    <div className="bg-white/5 backdrop-blur-sm rounded-lg p-6 border border-cyan-800/20 hover:border-cyan-700/30 transition-all duration-300 min-h-32 w-80 md:w-96">
+      <div className="flex flex-col space-y-4">
+        <div className="flex items-center space-x-3">
+          <span className="text-secondary-light">{icon && icon}</span>
+          <h2 className="text-xl font-semibold text-title">
+            {title}
+          </h2>
+        </div>
+        <div className="w-full h-[1px] bg-cyan-800/20"></div>
+        <div className="flex flex-col space-y-6">
+          <p className="text-paragraph text-sm">{content}</p>
+          {children}
+          <div className={`${buttonText ? "block" : "hidden"} flex justify-center`}>
+            <Button link={link}>{buttonText}</Button>
+          </div>
         </div>
       </div>
     </div>

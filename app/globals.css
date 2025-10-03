@@ -10,6 +10,7 @@
 @layer base {
   html {
     font-family: "Fira Sans", sans-serif, system-ui;
+    scroll-behavior: smooth;
   }
 
   body {
@@ -92,24 +93,43 @@ body::-moz-scrollbar-track {
 }
 
 :root {
-  --color-text-paragraph: #ffffff;
-  --color-text-title: #06b6d4;
-  --color-bg-title: #00C896;
-  --color-bg-component: #164e63;
-  --color-green-accent: #00FFB3;
-  --color-cyan-accent: #22d3ee;
+  /* Primary Colors */
+  --color-primary: #06b6d4;
+  --color-primary-light: #22d3ee;
+  --color-primary-dark: #164e63;
+  
+  /* Secondary Colors */
+  --color-secondary: #00C896;
+  --color-secondary-light: #00FFB3;
+  
+  /* Text Colors */
+  --color-text-primary: var(--color-primary);
+  --color-text-base: #ffffff;
+  
+  /* Background Colors */
+  --color-bg-card: rgba(255, 255, 255, 0.05);
+  --color-bg-component: var(--color-primary-dark);
+  
+  /* Border Colors */
+  --color-border: rgba(8, 145, 178, 0.2);
 }
 
 /* Utility classes for semantic color usage */
 .text-paragraph {
-  color: var(--color-text-paragraph) !important;
+  color: var(--color-text-base) !important;
 }
 .text-title {
-  color: var(--color-text-title) !important;
+  color: var(--color-text-primary) !important;
+}
+.text-secondary-light {
+  color: var(--color-secondary-light) !important;
 }
 .bg-title {
-  background-color: var(--color-bg-title) !important;
+  background-color: var(--color-secondary) !important;
 }
 .bg-component {
   background-color: var(--color-bg-component) !important;
+}
+.border-primary {
+  border-color: var(--color-border) !important;
 }

@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="120" height="120" viewBox="0 0 120 120" role="img" aria-label="Eyes">
+  <style>
+    .eye { fill: #2E2B3A; }
+  </style>
+
+  <!-- eyes -->
+  <ellipse class="eye" cx="50" cy="57" rx="3.4" ry="4.9"/>
+  <ellipse class="eye" cx="70" cy="57" rx="3.4" ry="4.9"/>
+
+</svg>

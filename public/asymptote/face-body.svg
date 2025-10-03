@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="120" height="120" viewBox="0 0 120 120" role="img" aria-label="Face body">
+  <defs>
+    <!-- Radial gradient for the dot body (soft) -->
+    <radialGradient id="dotBody" cx="40%" cy="30%" r="80%">
+      <stop offset="0%" stop-color="#FFF0E6"/>
+      <stop offset="55%" stop-color="#F5DCE6"/>
+      <stop offset="100%" stop-color="#E6E0FF"/>
+    </radialGradient>
+
+    <!-- Shadow under the dot -->
+    <radialGradient id="shadow" cx="50%" cy="40%" r="55%">
+      <stop offset="0%" stop-color="#000" stop-opacity="0.12"/>
+      <stop offset="100%" stop-color="#000" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <!-- shadow under the dot -->
+  <ellipse cx="60" cy="85" rx="23" ry="8" fill="url(#shadow)" opacity="0.6" />
+
+  <!-- Dot body -->
+  <circle cx="60" cy="60" r="22" fill="url(#dotBody)" stroke="rgba(46,43,58,0.04)" stroke-width="0.75"/>
+
+</svg>
