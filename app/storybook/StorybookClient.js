@@ -30,7 +30,6 @@ export default function StorybookClient({ stories }) {
     // Attempt to play after a short delay
     const timer = setTimeout(() => {
       if (!isPlaying) {
-        console.log('🎵 Auto-playing background music...');
         toggle();
       }
       autoPlayAttempted.current = true;

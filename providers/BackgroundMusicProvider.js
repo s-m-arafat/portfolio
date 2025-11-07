@@ -9,6 +9,7 @@ export function BackgroundMusicProvider({ children }) {
   const [isLoaded, setIsLoaded] = useState(false);
   const [volume, setVolume] = useState(0.3);
   const audioRef = useRef(null);
+  const autoPlayAttempted = useRef(false);
 
   // Load user preference from localStorage
   useEffect(() => {
@@ -49,8 +50,14 @@ export function BackgroundMusicProvider({ children }) {
       const playPromise = audio.play();
       if (playPromise !== undefined) {
         playPromise.catch((error) => {
-          console.warn('Auto-play prevented:', error);
+          // Only log once for auto-play prevention
+          if (!autoPlayAttempted.current) {
+            console.log('💡 Background music ready. Click the music button to play.');
+            autoPlayAttempted.current = true;
+          }
+          // Turn off the playing state since auto-play failed
           setIsPlaying(false);
+          localStorage.setItem('bgm-enabled', 'false');
         });
       }
     } else {
