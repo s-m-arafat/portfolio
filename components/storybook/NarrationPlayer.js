@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useRef, useState, useEffect } from 'react';
-import { Play, Pause, Volume2, RotateCcw } from 'lucide-react';
+import { Play, Pause, Volume2, VolumeX, RotateCcw } from 'lucide-react';
 import { useBackgroundMusic } from '@/providers/BackgroundMusicProvider';
 
 export default function NarrationPlayer({ narrationUrl, duration }) {
@@ -9,11 +9,16 @@ export default function NarrationPlayer({ narrationUrl, duration }) {
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
   const [audioDuration, setAudioDuration] = useState(duration || 0);
+  const [volume, setVolume] = useState(0.6); // Default to 80%
+  const [isMuted, setIsMuted] = useState(false);
   const { pause: pauseBGM, resume: resumeBGM } = useBackgroundMusic();
 
   useEffect(() => {
     const audio = audioRef.current;
     if (!audio) return;
+
+    // Set initial volume
+    audio.volume = volume;
 
     const updateTime = () => setCurrentTime(audio.currentTime);
     const updateDuration = () => setAudioDuration(audio.duration);
@@ -32,7 +37,7 @@ export default function NarrationPlayer({ narrationUrl, duration }) {
       audio.removeEventListener('loadedmetadata', updateDuration);
       audio.removeEventListener('ended', handleEnded);
     };
-  }, [resumeBGM]);
+  }, [resumeBGM, volume]);
 
   const togglePlay = () => {
     const audio = audioRef.current;
@@ -68,6 +73,34 @@ export default function NarrationPlayer({ narrationUrl, duration }) {
 
     audio.currentTime = 0;
     setCurrentTime(0);
+  };
+
+  const handleVolumeChange = (e) => {
+    const audio = audioRef.current;
+    if (!audio) return;
+
+    const rect = e.currentTarget.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const percentage = Math.max(0, Math.min(1, x / rect.width));
+    
+    setVolume(percentage);
+    audio.volume = percentage;
+    if (percentage > 0) {
+      setIsMuted(false);
+    }
+  };
+
+  const toggleMute = () => {
+    const audio = audioRef.current;
+    if (!audio) return;
+
+    if (isMuted) {
+      audio.volume = volume;
+      setIsMuted(false);
+    } else {
+      audio.volume = 0;
+      setIsMuted(true);
+    }
   };
 
   const formatTime = (time) => {
@@ -124,6 +157,40 @@ export default function NarrationPlayer({ narrationUrl, duration }) {
           >
             <RotateCcw className="w-4 h-4 text-gray-700" />
           </button>
+
+          {/* Volume Control */}
+          <div className="flex items-center gap-2 ml-2 pl-2 border-l border-amber-300">
+            <button
+              onClick={toggleMute}
+              className="p-2 hover:bg-amber-100 rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-amber-400"
+              aria-label={isMuted ? 'Unmute' : 'Mute'}
+            >
+              {isMuted || volume === 0 ? (
+                <VolumeX className="w-4 h-4 text-gray-700" />
+              ) : (
+                <Volume2 className="w-4 h-4 text-gray-700" />
+              )}
+            </button>
+
+            <div
+              className="w-20 h-1.5 bg-gray-300 rounded-full cursor-pointer relative overflow-hidden"
+              onClick={handleVolumeChange}
+              role="slider"
+              aria-label="Volume control"
+              aria-valuemin={0}
+              aria-valuemax={100}
+              aria-valuenow={Math.round((isMuted ? 0 : volume) * 100)}
+            >
+              <div
+                className="h-full bg-amber-500 rounded-full transition-all"
+                style={{ width: `${(isMuted ? 0 : volume) * 100}%` }}
+              />
+            </div>
+
+            <div className="text-xs text-gray-600 w-8">
+              {Math.round((isMuted ? 0 : volume) * 100)}%
+            </div>
+          </div>
         </div>
 
         <div className="text-sm text-gray-700">

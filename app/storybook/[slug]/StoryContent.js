@@ -61,7 +61,7 @@ export default function StoryContent({ story }) {
       {/* Back Button */}
       <Link
         href="/storybook"
-        className="inline-flex items-center gap-2 text-gray-700 hover:text-gray-900 mb-8 transition-colors"
+        className="inline-flex items-center gap-2 text-gray-700 dark:text-white-faded hover:text-gray-900 mb-8 transition-colors"
       >
         <ArrowLeft className="w-4 h-4" />
         <span>Back to Stories</span>
@@ -81,7 +81,7 @@ export default function StoryContent({ story }) {
 
       {/* Title & Meta */}
       <div className="mb-8">
-        <h1 className="text-4xl md:text-5xl font-serif font-bold text-gray-900 mb-4">
+        <h1 className="text-4xl md:text-5xl font-serif font-bold text-gray-900 dark:text-white-faded mb-4">
           {title}
         </h1>
 
@@ -110,7 +110,7 @@ export default function StoryContent({ story }) {
           </button>
         </div>
 
-        <div className="flex flex-wrap items-center gap-4 text-sm text-gray-600">
+        <div className="flex flex-wrap items-center gap-4 text-sm text-gray-600 dark:text-white-faded">
           {author && (
             <div className="flex items-center gap-1">
               <User className="w-4 h-4" />
@@ -152,7 +152,7 @@ export default function StoryContent({ story }) {
 
       {/* Story Content */}
       <div 
-        className="prose prose-lg prose-amber max-w-none mb-8 bg-white/80 backdrop-blur-sm rounded-2xl p-8 shadow-md" 
+        className="prose prose-lg prose-amber max-w-none mb-8 bg-white/80 text-black backdrop-blur-sm rounded-2xl p-8 shadow-md" 
         style={{ 
           fontFamily: "'Noto Sans Bengali', 'Fira Sans', sans-serif",
           lineHeight: '2',
