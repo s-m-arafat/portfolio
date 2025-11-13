@@ -247,7 +247,7 @@ export default function NarrationPlayer({ narrationUrl, duration, storyTitle, st
       {/* Headphone Suggestion */}
       <div className="mt-3 flex items-center gap-2 text-xs text-amber-800 bg-amber-50 border border-amber-200 rounded-lg px-3 py-2">
         <Headphones className="w-4 h-4 flex-shrink-0" />
-        <span className="font-medium">Use headphones for the best immersive experience</span>
+        <span className="font-medium">Use headphones for <span className="hidden sm:inline">the </span>best <span className="hidden sm:inline">immersive </span>experience</span>
       </div>
 
       {/* Progress Bar */}
@@ -267,8 +267,8 @@ export default function NarrationPlayer({ narrationUrl, duration, storyTitle, st
       </div>
 
       {/* Controls */}
-      <div className="flex items-center justify-between mt-4">
-        <div className="flex items-center gap-2">
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-0 mt-4">
+        <div className="flex flex-wrap items-center gap-2 w-full sm:w-auto">
           <button
             onClick={togglePlay}
             className="p-3 bg-amber-500 hover:bg-amber-600 rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-amber-400"
@@ -290,7 +290,7 @@ export default function NarrationPlayer({ narrationUrl, duration, storyTitle, st
           </button>
 
           {/* Volume Control */}
-          <div className="flex items-center gap-2 ml-2 pl-2 border-l border-amber-300">
+          <div className="flex items-center gap-2 ml-0 sm:ml-2 pl-0 sm:pl-2 sm:border-l border-amber-300">
             <button
               onClick={toggleMute}
               className="p-2 hover:bg-amber-100 rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-amber-400"
@@ -304,7 +304,7 @@ export default function NarrationPlayer({ narrationUrl, duration, storyTitle, st
             </button>
 
             <div
-              className="w-20 h-1.5 bg-gray-300 rounded-full cursor-pointer relative overflow-hidden"
+              className="w-16 sm:w-20 h-1.5 bg-gray-300 rounded-full cursor-pointer relative overflow-hidden"
               onClick={handleVolumeChange}
               role="slider"
               aria-label="Volume control"
@@ -318,12 +318,12 @@ export default function NarrationPlayer({ narrationUrl, duration, storyTitle, st
               />
             </div>
 
-            <div className="text-xs text-gray-600 w-8">
+            <div className="text-xs text-gray-600 w-7 sm:w-8 text-right">
               {Math.round((isMuted ? 0 : volume) * 100)}%
             </div>
 
             {/* Playback Speed */}
-            <div className="relative ml-2 pl-2 border-l border-amber-300" ref={speedMenuRef}>
+            <div className="relative ml-0 sm:ml-2 pl-0 sm:pl-2 sm:border-l border-amber-300" ref={speedMenuRef}>
               <button
                 onClick={() => setShowSpeedMenu(!showSpeedMenu)}
                 className="flex items-center gap-1 px-2 py-1 text-xs bg-white hover:bg-amber-100 border border-amber-300 rounded-md text-gray-800 focus:outline-none focus:ring-2 focus:ring-amber-400"
@@ -355,20 +355,23 @@ export default function NarrationPlayer({ narrationUrl, duration, storyTitle, st
           </div>
         </div>
 
-        {/* Minimize button */}
-        {isControlledByGlobal && !globalPlayer.isMinimized && (
-          <button
-            onClick={handleMinimize}
-            className="p-2 hover:bg-amber-200 rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-amber-400"
-            aria-label="Minimize to floating player"
-            title="Minimize to floating player"
-          >
-            <Minimize2 className="w-4 h-4 text-gray-700" />
-          </button>
-        )}
+        {/* Time Display and Minimize button */}
+        <div className="flex items-center gap-2 justify-between sm:justify-end w-full sm:w-auto">
+          <div className="text-sm text-gray-700 order-2 sm:order-1">
+            {formatTime(currentTime)} / {formatTime(audioDuration)}
+          </div>
 
-        <div className="text-sm text-gray-700">
-          {formatTime(currentTime)} / {formatTime(audioDuration)}
+          {/* Minimize button */}
+          {isControlledByGlobal && !globalPlayer.isMinimized && (
+            <button
+              onClick={handleMinimize}
+              className="p-2 hover:bg-amber-200 rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-amber-400 order-1 sm:order-2"
+              aria-label="Minimize to floating player"
+              title="Minimize to floating player"
+            >
+              <Minimize2 className="w-4 h-4 text-gray-700" />
+            </button>
+          )}
         </div>
       </div>
     </div>
