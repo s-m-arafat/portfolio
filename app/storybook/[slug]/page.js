@@ -34,5 +34,5 @@ export default async function StoryPage({ params }) {
   const { slug } = await params;
   const story = getStoryBySlug(slug);
 
-  return <StoryContent story={story} />;
+  return <StoryContent story={story} slug={slug} />;
 }

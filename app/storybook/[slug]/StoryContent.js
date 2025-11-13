@@ -34,7 +34,7 @@ const ThreeScene = dynamic(
   }
 );
 
-export default function StoryContent({ story }) {
+export default function StoryContent({ story, slug }) {
   const { isPlaying, toggle } = useBackgroundMusic();
   
   if (!story) {
@@ -146,6 +146,8 @@ export default function StoryContent({ story }) {
           <NarrationPlayer
             narrationUrl={audio.narrationUrl}
             duration={audio.duration}
+            storyTitle={title}
+            storySlug={slug}
           />
         </div>
       )}
