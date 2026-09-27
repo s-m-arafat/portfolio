@@ -1,140 +1,130 @@
-import React from "react";
-import Image from "next/image";
-import SocialGroup from "@/components/socialgroup";
-import Expertise from "@/components/expertise";
-import Explore from "@/components/explore";
-import Button from "@/components/ui/button";
-import Card from "@/components/ui/card";
-import Badge from "@/components/ui/badge";
-import PortfolioCard from "@/components/ui/portfolio-card";
+import Link from "next/link";
+import { ArrowRight, Github, Linkedin, Mail, MapPin } from "lucide-react";
+import { getAllProjects } from "@/lib/projects";
+import { FIELDS, site } from "@/lib/site";
+import { ProjectGrid } from "@/components/ProjectCard";
+import { ButtonLink, SectionHeading } from "@/components/primitives";
+
+const icons = { LinkedIn: Linkedin, GitHub: Github };
+const iconLink =
+  "inline-flex size-11 items-center justify-center rounded-lg border border-line-strong bg-surface text-muted transition-colors duration-150 hover:border-ink hover:text-accent";
 
 export default function Home() {
-  // Example featured content - you would typically fetch this from your data source
-  const featuredPosts = [
-    {
-      title: "Latest Research Paper",
-      excerpt: "Exploring the intersection of AI and sustainable computing",
-      date: "August 2025",
-      link: "/research"
-    },
-    {
-      title: "Recent Project",
-      excerpt: "Building efficient ML models for edge devices",
-      date: "July 2025",
-      link: "/projects"
-    }
-  ];
+  const projects = getAllProjects();
+  const featured = projects.filter((p) => p.featured);
+  const count = (slug) => projects.filter((p) => p.fields.includes(slug)).length;
+  const fieldCards = FIELDS.filter((f) => f.slug !== "research");
+  const { title, org, period } = site.currentRole;
 
   return (
-    <div className="relative">
-      {/* Hero Section */}
-      <section className="min-h-screen flex flex-col lg:flex-row items-center py-8 lg:py-12">
-        <div className="relative w-full lg:w-1/2">
-          <Image
-            src="/images/chip-bg-3.jpg"
-            alt="chip"
-            width={500}
-            height={500}
-            className="relative z-10 w-full"
-            priority
-          />
-          <div className="gradient-fade-edges"></div>
-        </div>
-        <div className="relative flex items-center pt-4 pb-4 px-5 lg:pl-10 w-full lg:w-1/2">
-          <div className="grid-pattern" />
-          <div className="flex flex-col align-middle gap-4">
-            <div className="leading-10 antialiased mb-2">
-              <p className="text-md text-paragraph mb-1">Hello! I&apos;m</p>
-              <h1 className="text-3xl lg:text-5xl font-bold text-title mb-1">
-                Shakil Mahmud Arafat
-              </h1>
-              <p className="text-sm md:text-md text-paragraph font-['Fira_Code'] pt-1">
-                Welcome to the realm of my ideas and thoughts.
-              </p>
-            </div>
-            <Expertise />
-            <div className="flex space-x-4 mt-3 items-center justify-center md:justify-start">
-              <Button link="/#about" hideicon>
-                About Me
-              </Button>
-              <Button link="/portfolio">View Portfolio</Button>
-            </div>
-            <div className="pb-2 lg:pb-0 lg:mt-8">
-              <SocialGroup />
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Featured Content Section */}
-      <section className="py-16 px-5 md:px-10" id="featured">
-        <div className="max-w-7xl mx-auto">
-          <h2 className="text-3xl font-bold text-title mb-8">Featured Work</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {featuredPosts.map((post, index) => (
-              <PortfolioCard
-                key={index}
-                title={post.title}
-                description={post.excerpt}
-                dateRange={post.date}
-                viewLink={post.link}
-                technologies={["AI", "Machine Learning", "Edge Computing"]}
-              />
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* About Section */}
-      <section className="py-16 px-5 md:px-10 bg-white/5 backdrop-blur-sm" id="about">
-        <div className="max-w-7xl mx-auto">
-          <h2 className="text-3xl font-bold text-title mb-8">About Me</h2>
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
-            <div className="space-y-6">
-              <p className="text-paragraph">
-                I&apos;m a passionate researcher and developer focused on the intersection of artificial intelligence 
-                and sustainable computing. With expertise in machine learning and edge computing, I strive to 
-                create solutions that make a meaningful impact.
-              </p>
-              <div className="flex flex-wrap gap-2">
-                <Badge>Machine Learning</Badge>
-                <Badge>Edge Computing</Badge>
-                <Badge>Sustainable AI</Badge>
-                <Badge>Research</Badge>
-              </div>
-            </div>
-            <div className="relative">
-              <Image
-                src="/images/profile-pic.jpg"
-                alt="Profile"
-                width={400}
-                height={400}
-                className="rounded-lg shadow-lg"
-              />
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Quick Links Section */}
-      <section className="py-16 px-5 md:px-10">
-        <Explore />
-      </section>
-
-      {/* Contact Section */}
-      <section className="py-16 px-5 md:px-10 bg-white/5 backdrop-blur-sm">
-        <div className="max-w-7xl mx-auto text-center">
-          <h2 className="text-3xl font-bold text-title mb-8">Let&apos;s Connect</h2>
-          <p className="text-paragraph mb-8 max-w-2xl mx-auto">
-            Interested in collaborating on research, projects, or just want to discuss ideas? 
-            Feel free to reach out!
+    <>
+      <section className="container pb-12 pt-12 sm:pb-16 sm:pt-20">
+        <div className="max-w-3xl">
+          <h1 className="text-4xl font-semibold tracking-tight text-balance text-ink sm:text-5xl">{site.name}</h1>
+          <p className="mt-3 text-xl font-medium text-accent sm:text-2xl">{site.headline}</p>
+          <p className="mt-3 inline-flex items-center gap-1.5 text-sm text-muted">
+            <MapPin className="size-4" aria-hidden="true" />
+            {site.location}
           </p>
-          <div className="flex justify-center space-x-4">
-            <Button link="/contact">Get in Touch</Button>
-            <Button link="mailto:your-email@example.com">Email Me</Button>
+          <p className="mt-6 flex flex-col gap-1 border-l-2 border-accent pl-4 sm:flex-row sm:items-baseline sm:gap-3">
+            <span className="text-xs font-medium uppercase tracking-wider text-muted">Current role</span>
+            <span className="text-sm font-medium text-ink">
+              {title} · {org} · {period}
+            </span>
+          </p>
+          <p className="mt-6 text-base leading-7 text-muted sm:text-lg sm:leading-8">{site.summary}</p>
+          <div className="mt-8 flex flex-wrap items-center gap-3">
+            <ButtonLink href="/projects">View projects</ButtonLink>
+            <ButtonLink href="/contact" variant="secondary">
+              Get in touch
+            </ButtonLink>
+          </div>
+          <ul className="mt-6 flex items-center gap-2">
+            {site.socials.map(({ label, href }) => {
+              const Icon = icons[label];
+              return (
+                <li key={label}>
+                  <a href={href} target="_blank" rel="noopener noreferrer" className={iconLink}>
+                    <Icon className="size-5" aria-hidden="true" />
+                    <span className="sr-only">{label} (opens in new tab)</span>
+                  </a>
+                </li>
+              );
+            })}
+            <li>
+              <a href={`mailto:${site.email}`} className={iconLink}>
+                <Mail className="size-5" aria-hidden="true" />
+                <span className="sr-only">Email</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <section aria-labelledby="selected-projects" className="container py-12 sm:py-16">
+        <SectionHeading
+          id="selected-projects"
+          title="Selected projects"
+          description="One project from each field, plus my BSc thesis."
+        />
+        <div className="mt-8">
+          <ProjectGrid projects={featured} />
+        </div>
+        <Link
+          href="/projects"
+          className="mt-8 inline-flex min-h-6 items-center gap-1.5 text-sm font-semibold text-accent underline-offset-4 transition-colors duration-150 hover:text-accent-hover hover:underline"
+        >
+          View all {projects.length} projects
+          <ArrowRight className="size-4" aria-hidden="true" />
+        </Link>
+      </section>
+
+      <section aria-labelledby="browse-by-field" className="container py-12 sm:py-16">
+        <SectionHeading
+          id="browse-by-field"
+          title="Browse by field"
+          description="Each field opens the project list filtered to that field."
+        />
+        <ul role="list" className="mt-8 grid gap-4 md:grid-cols-3">
+          {fieldCards.map((f) => {
+            const n = count(f.slug);
+            return (
+              <li key={f.slug} className="flex">
+                <Link
+                  href={`/projects?field=${f.slug}`}
+                  className="group flex w-full flex-col rounded-xl border border-line bg-surface p-6 transition duration-150 hover:border-line-strong hover:shadow-sm"
+                >
+                  <h3 className="text-base font-semibold leading-snug text-ink transition-colors duration-150 group-hover:text-accent sm:text-lg">
+                    {f.label}
+                  </h3>
+                  <p className="mt-2 flex-1 text-sm leading-6 text-muted">{f.blurb}</p>
+                  <p className="mt-4 inline-flex items-center gap-1.5 font-mono text-xs text-muted">
+                    {n} {n === 1 ? "project" : "projects"}
+                    <ArrowRight className="size-3.5" aria-hidden="true" />
+                  </p>
+                </Link>
+              </li>
+            );
+          })}
+        </ul>
+      </section>
+
+      <section aria-labelledby="get-in-touch" className="container py-12 sm:py-16">
+        <div className="flex flex-col gap-6 rounded-xl border border-line bg-surface p-6 sm:p-10 md:flex-row md:items-center md:justify-between">
+          <div className="max-w-xl">
+            <h2 id="get-in-touch" className="text-2xl font-semibold tracking-tight text-ink">
+              Get in touch
+            </h2>
+            <p className="mt-2 text-base leading-7 text-muted">{site.availability}</p>
+          </div>
+          <div className="flex flex-wrap gap-3">
+            <ButtonLink href={`mailto:${site.email}`}>Email me</ButtonLink>
+            <ButtonLink href="/contact" variant="secondary">
+              All contact details
+            </ButtonLink>
           </div>
         </div>
       </section>
-    </div>
+    </>
   );
 }

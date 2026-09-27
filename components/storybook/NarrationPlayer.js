@@ -1,379 +1,120 @@
-'use client';
+"use client";
 
-import React, { useRef, useState, useEffect } from 'react';
-import { Play, Pause, Volume2, VolumeX, RotateCcw, Gauge, Minimize2, Headphones } from 'lucide-react';
-import { useBackgroundMusic } from '@/providers/BackgroundMusicProvider';
-import { useNarrationPlayer } from '@/providers/NarrationPlayerProvider';
+import { Headphones, Pause, Play, RotateCcw, RotateCw, Volume2, VolumeX } from "lucide-react";
+import { RATES, formatTime, useNarration } from "@/providers/NarrationPlayerProvider";
 
-export default function NarrationPlayer({ narrationUrl, duration, storyTitle, storySlug }) {
-  const audioRef = useRef(null);
-  const speedMenuRef = useRef(null);
-  const [isPlaying, setIsPlaying] = useState(false);
-  const [currentTime, setCurrentTime] = useState(0);
-  const [audioDuration, setAudioDuration] = useState(duration || 0);
-  const [volume, setVolume] = useState(0.5);
-  const [isMuted, setIsMuted] = useState(false);
-  const [playbackRate, setPlaybackRate] = useState(1.0);
-  const [showSpeedMenu, setShowSpeedMenu] = useState(false);
-  const { pause: pauseBGM, resume: resumeBGM } = useBackgroundMusic();
-  const globalPlayer = useNarrationPlayer();
+const FOCUS = "focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-book-accent";
+const ICON_BUTTON = `inline-flex size-11 items-center justify-center rounded-full text-book-ink transition-colors duration-200 hover:bg-book-page ${FOCUS} motion-reduce:transition-none`;
 
-  // Sync with global player when it's controlling this track
-  const isControlledByGlobal = globalPlayer.currentTrack?.url === narrationUrl;
-
-  useEffect(() => {
-    if (isControlledByGlobal) {
-      setIsPlaying(globalPlayer.isPlaying);
-      setCurrentTime(globalPlayer.currentTime);
-      setVolume(globalPlayer.volume);
-      setIsMuted(globalPlayer.isMuted);
-      setPlaybackRate(globalPlayer.playbackRate);
-      setAudioDuration(globalPlayer.duration || duration || 0);
-    }
-  }, [
-    isControlledByGlobal,
-    globalPlayer.isPlaying,
-    globalPlayer.currentTime,
-    globalPlayer.volume,
-    globalPlayer.isMuted,
-    globalPlayer.playbackRate,
-    globalPlayer.duration,
-    duration,
-  ]);
-
-  useEffect(() => {
-    const audio = audioRef.current;
-    if (!audio) return;
-
-  // Set initial volume and playback speed
-    audio.volume = volume;
-  audio.playbackRate = playbackRate;
-
-    const updateTime = () => setCurrentTime(audio.currentTime);
-    const updateDuration = () => setAudioDuration(audio.duration);
-    const handleEnded = () => {
-      setIsPlaying(false);
-      setCurrentTime(0);
-      resumeBGM();
-    };
-
-    audio.addEventListener('timeupdate', updateTime);
-    audio.addEventListener('loadedmetadata', updateDuration);
-    audio.addEventListener('ended', handleEnded);
-
-    return () => {
-      audio.removeEventListener('timeupdate', updateTime);
-      audio.removeEventListener('loadedmetadata', updateDuration);
-      audio.removeEventListener('ended', handleEnded);
-    };
-  }, [resumeBGM, volume, playbackRate]);
-
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (speedMenuRef.current && !speedMenuRef.current.contains(event.target)) {
-        setShowSpeedMenu(false);
-      }
-    };
-
-    if (showSpeedMenu) {
-      document.addEventListener('mousedown', handleClickOutside);
-    }
-
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, [showSpeedMenu]);
-
-  const togglePlay = async () => {
-    if (isControlledByGlobal) {
-      // Use global player controls
-      await globalPlayer.togglePlay();
-      if (!globalPlayer.isPlaying) {
-        pauseBGM();
-      } else {
-        resumeBGM();
-      }
-      return;
-    }
-
-    // Local player logic
-    const audio = audioRef.current;
-    if (!audio) return;
-
-    if (isPlaying) {
-      audio.pause();
-      setIsPlaying(false);
-      resumeBGM();
-    } else {
-      // Load into global player and start
-      globalPlayer.loadTrack(narrationUrl, storyTitle, storySlug);
-      pauseBGM();
-      
-      // Transfer current state to global player
-      globalPlayer.changeVolume(volume);
-      globalPlayer.changePlaybackRate(playbackRate);
-      if (isMuted) globalPlayer.toggleMute();
-      
-      // Wait a bit for the track to load, then play and minimize
-      await new Promise(resolve => setTimeout(resolve, 100));
-      await globalPlayer.play();
-      globalPlayer.minimize();
-      setIsPlaying(true);
-    }
-  };
-
-  const handleSeek = (e) => {
-    if (isControlledByGlobal) {
-      const rect = e.currentTarget.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const percentage = x / rect.width;
-      const newTime = percentage * globalPlayer.duration;
-      globalPlayer.seek(newTime);
-      return;
-    }
-
-    const audio = audioRef.current;
-    if (!audio) return;
-
-    const rect = e.currentTarget.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const percentage = x / rect.width;
-    const newTime = percentage * audioDuration;
-    
-    audio.currentTime = newTime;
-    setCurrentTime(newTime);
-  };
-
-  const handleRestart = () => {
-    if (isControlledByGlobal) {
-      globalPlayer.restart();
-      return;
-    }
-
-    const audio = audioRef.current;
-    if (!audio) return;
-
-    audio.currentTime = 0;
-    setCurrentTime(0);
-  };
-
-  const handleVolumeChange = (e) => {
-    const rect = e.currentTarget.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const percentage = Math.max(0, Math.min(1, x / rect.width));
-    
-    if (isControlledByGlobal) {
-      globalPlayer.changeVolume(percentage);
-    } else {
-      const audio = audioRef.current;
-      if (!audio) return;
-      
-      setVolume(percentage);
-      audio.volume = percentage;
-      if (percentage > 0) {
-        setIsMuted(false);
-      }
-    }
-  };
-
-  const toggleMute = () => {
-    if (isControlledByGlobal) {
-      globalPlayer.toggleMute();
-      return;
-    }
-
-    const audio = audioRef.current;
-    if (!audio) return;
-
-    if (isMuted) {
-      audio.volume = volume;
-      setIsMuted(false);
-    } else {
-      audio.volume = 0;
-      setIsMuted(true);
-    }
-  };
-
-  const handleSpeedToggle = () => {
-    const speeds = [1.25, 1.5, 1.75, 2.0];
-    const idx = speeds.indexOf(playbackRate);
-    if (idx === -1) {
-      setPlaybackRate(speeds[0]);
-    } else if (idx === speeds.length - 1) {
-      setPlaybackRate(1.0); // cycle back to normal speed
-    } else {
-      setPlaybackRate(speeds[idx + 1]);
-    }
-  };
-
-  const handleSpeedSelect = (speed) => {
-    if (isControlledByGlobal) {
-      globalPlayer.changePlaybackRate(speed);
-    } else {
-      setPlaybackRate(speed);
-    }
-    setShowSpeedMenu(false);
-  };
-
-  const handleMinimize = () => {
-    if (isControlledByGlobal) {
-      globalPlayer.minimize();
-    }
-  };
-
-  const formatTime = (time) => {
-    if (!time || isNaN(time)) return '0:00';
-    const minutes = Math.floor(time / 60);
-    const seconds = Math.floor(time % 60);
-    return `${minutes}:${seconds.toString().padStart(2, '0')}`;
-  };
-
+export default function NarrationPlayer({ track }) {
+  const p = useNarration();
+  const loaded = p.track?.url === track.url;
+  const busy = loaded && (p.status === "playing" || p.status === "loading");
+  // One return: the primary button keeps its parent and slot in both states, so React reuses
+  // its DOM node and keyboard/screen-reader focus survives "Listen" -> "Pause".
   return (
-    <div className="bg-gradient-to-r from-amber-50 to-orange-50 rounded-2xl p-6 shadow-md">
-      {!isControlledByGlobal && (
-        <audio ref={audioRef} src={narrationUrl} preload="metadata" />
-      )}
-      
-      <div className="flex items-center gap-4">
-        <Volume2 className="w-5 h-5 text-amber-900" />
-        <h4 className="font-serif font-semibold text-gray-900">Audio Narration</h4>
-        {isControlledByGlobal && globalPlayer.isMinimized && (
-          <span className="ml-auto text-xs bg-amber-200 text-amber-900 px-2 py-1 rounded-full">
-            Playing in mini-player
-          </span>
+    <section
+      aria-label="Audio narration"
+      className={
+        loaded
+          ? "mt-8 grid grid-cols-[auto_minmax(0,1fr)] items-center gap-x-3 gap-y-2 rounded-md border border-book-rule bg-book-paper p-3 sm:grid-cols-[auto_minmax(0,1fr)_auto] sm:p-4"
+          : "mt-8 flex flex-wrap items-center gap-x-4 gap-y-2 border-y border-book-rule py-4"
+      }
+    >
+      <div className="flex items-center gap-1">
+        {loaded && (
+          <button type="button" onClick={() => p.skip(-10)} aria-label="Back 10 seconds" className={ICON_BUTTON}>
+            <RotateCcw aria-hidden="true" className="size-5" />
+          </button>
+        )}
+        <button
+          type="button"
+          onClick={loaded ? p.toggle : () => p.load(track, { autoplay: true })}
+          aria-label={loaded ? (busy ? "Pause" : "Play") : undefined}
+          className={
+            loaded
+              ? `inline-flex size-12 items-center justify-center rounded-full bg-book-accent text-book-page transition-colors duration-200 hover:bg-book-ink ${FOCUS} motion-reduce:transition-none`
+              : `inline-flex min-h-11 items-center gap-2 rounded-full bg-book-accent px-5 font-medium text-book-page transition-colors duration-200 hover:bg-book-ink ${FOCUS} motion-reduce:transition-none`
+          }
+        >
+          {busy ? <Pause aria-hidden="true" className="size-5" /> : <Play aria-hidden="true" className={loaded ? "size-5" : "size-4"} />}
+          {!loaded && " Listen to this story"}
+        </button>
+        {loaded && (
+          <button type="button" onClick={() => p.skip(10)} aria-label="Forward 10 seconds" className={ICON_BUTTON}>
+            <RotateCw aria-hidden="true" className="size-5" />
+          </button>
         )}
       </div>
-
-      {/* Headphone Suggestion */}
-      <div className="mt-3 flex items-center gap-2 text-xs text-amber-800 bg-amber-50 border border-amber-200 rounded-lg px-3 py-2">
-        <Headphones className="w-4 h-4 flex-shrink-0" />
-        <span className="font-medium">Use headphones for <span className="hidden sm:inline">the </span>best <span className="hidden sm:inline">immersive </span>experience</span>
-      </div>
-
-      {/* Progress Bar */}
-      <div
-        className="mt-4 h-2 bg-gray-300 rounded-full cursor-pointer relative overflow-hidden"
-        onClick={handleSeek}
-        role="slider"
-        aria-label="Seek audio"
-        aria-valuemin={0}
-        aria-valuemax={audioDuration}
-        aria-valuenow={currentTime}
-      >
-        <div
-          className="h-full bg-amber-500 rounded-full transition-all"
-          style={{ width: `${(currentTime / audioDuration) * 100}%` }}
-        />
-      </div>
-
-      {/* Controls */}
-      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-0 mt-4">
-        <div className="flex flex-wrap items-center gap-2 w-full sm:w-auto">
-          <button
-            onClick={togglePlay}
-            className="p-3 bg-amber-500 hover:bg-amber-600 rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-amber-400"
-            aria-label={isPlaying ? 'Pause' : 'Play'}
-          >
-            {isPlaying ? (
-              <Pause className="w-5 h-5 text-white" />
-            ) : (
-              <Play className="w-5 h-5 text-white" />
-            )}
-          </button>
-
-          <button
-            onClick={handleRestart}
-            className="p-2 hover:bg-amber-100 rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-amber-400"
-            aria-label="Restart"
-          >
-            <RotateCcw className="w-4 h-4 text-gray-700" />
-          </button>
-
-          {/* Volume Control */}
-          <div className="flex items-center gap-2 ml-0 sm:ml-2 pl-0 sm:pl-2 sm:border-l border-amber-300">
-            <button
-              onClick={toggleMute}
-              className="p-2 hover:bg-amber-100 rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-amber-400"
-              aria-label={isMuted ? 'Unmute' : 'Mute'}
+      {loaded ? (
+        <>
+          <input
+            type="range"
+            min={0}
+            max={p.duration || 0}
+            step={1}
+            value={Math.min(p.currentTime, p.duration || 0)}
+            onChange={(e) => p.seek(Number(e.target.value))}
+            disabled={!p.duration}
+            aria-label="Seek"
+            aria-valuetext={`${formatTime(p.currentTime)} of ${formatTime(p.duration)}`}
+            className={`h-11 w-full cursor-pointer accent-book-accent disabled:cursor-not-allowed disabled:opacity-50 ${FOCUS}`}
+          />
+          <p className="whitespace-nowrap text-sm tabular-nums text-book-muted">
+            <span>{formatTime(p.currentTime)}</span> / <span>{formatTime(p.duration)}</span>
+          </p>
+          <label className="inline-flex items-center gap-2 justify-self-end text-sm text-book-muted sm:justify-self-start">
+            Speed
+            <select
+              value={p.rate}
+              onChange={(e) => p.setRate(Number(e.target.value))}
+              className={`min-h-11 cursor-pointer rounded-md border border-book-muted bg-book-page px-2 text-sm text-book-ink ${FOCUS}`}
             >
-              {isMuted || volume === 0 ? (
-                <VolumeX className="w-4 h-4 text-gray-700" />
-              ) : (
-                <Volume2 className="w-4 h-4 text-gray-700" />
-              )}
+              {RATES.map((r) => (
+                <option key={r} value={r}>
+                  {r}×
+                </option>
+              ))}
+            </select>
+          </label>
+          <div className="hidden items-center gap-1 justify-self-end sm:col-span-2 sm:flex">
+            <button type="button" onClick={p.toggleMute} aria-label={p.muted ? "Unmute" : "Mute"} className={ICON_BUTTON}>
+              {p.muted || p.volume === 0 ? <VolumeX aria-hidden="true" className="size-5" /> : <Volume2 aria-hidden="true" className="size-5" />}
             </button>
-
-            <div
-              className="w-16 sm:w-20 h-1.5 bg-gray-300 rounded-full cursor-pointer relative overflow-hidden"
-              onClick={handleVolumeChange}
-              role="slider"
-              aria-label="Volume control"
-              aria-valuemin={0}
-              aria-valuemax={100}
-              aria-valuenow={Math.round((isMuted ? 0 : volume) * 100)}
-            >
-              <div
-                className="h-full bg-amber-500 rounded-full transition-all"
-                style={{ width: `${(isMuted ? 0 : volume) * 100}%` }}
-              />
-            </div>
-
-            <div className="text-xs text-gray-600 w-7 sm:w-8 text-right">
-              {Math.round((isMuted ? 0 : volume) * 100)}%
-            </div>
-
-            {/* Playback Speed */}
-            <div className="relative ml-0 sm:ml-2 pl-0 sm:pl-2 sm:border-l border-amber-300" ref={speedMenuRef}>
-              <button
-                onClick={() => setShowSpeedMenu(!showSpeedMenu)}
-                className="flex items-center gap-1 px-2 py-1 text-xs bg-white hover:bg-amber-100 border border-amber-300 rounded-md text-gray-800 focus:outline-none focus:ring-2 focus:ring-amber-400"
-                aria-label="Toggle playback speed"
-                title="Playback speed"
-              >
-                <Gauge className="w-3 h-3" />
-                {`${Number.isInteger(playbackRate) ? playbackRate.toFixed(0) : playbackRate}x`}
-              </button>
-
-              {/* Speed Dropdown Menu */}
-              {showSpeedMenu && (
-                <div className="absolute bottom-full mb-2 right-0 bg-white border border-amber-300 rounded-lg shadow-lg py-1 z-10 min-w-[80px]">
-                  {[1.0, 1.25, 1.5, 1.75, 2.0].map((speed) => (
-                    <button
-                      key={speed}
-                      onClick={() => handleSpeedSelect(speed)}
-                      className={`w-full px-3 py-2 text-xs text-left hover:bg-amber-50 transition-colors ${
-                        playbackRate === speed ? 'bg-amber-100 font-semibold text-amber-900' : 'text-gray-700'
-                      }`}
-                    >
-                      {`${Number.isInteger(speed) ? speed.toFixed(0) : speed}x`}
-                      {speed === 1.0 && ' (Normal)'}
-                    </button>
-                  ))}
-                </div>
-              )}
-            </div>
+            <input
+              type="range"
+              min={0}
+              max={1}
+              step={0.05}
+              value={p.muted ? 0 : p.volume}
+              onChange={(e) => p.setVolume(Number(e.target.value))}
+              aria-label="Volume"
+              className={`h-11 w-24 cursor-pointer accent-book-accent ${FOCUS}`}
+            />
           </div>
-        </div>
-
-        {/* Time Display and Minimize button */}
-        <div className="flex items-center gap-2 justify-between sm:justify-end w-full sm:w-auto">
-          <div className="text-sm text-gray-700 order-2 sm:order-1">
-            {formatTime(currentTime)} / {formatTime(audioDuration)}
-          </div>
-
-          {/* Minimize button */}
-          {isControlledByGlobal && !globalPlayer.isMinimized && (
-            <button
-              onClick={handleMinimize}
-              className="p-2 hover:bg-amber-200 rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-amber-400 order-1 sm:order-2"
-              aria-label="Minimize to floating player"
-              title="Minimize to floating player"
-            >
-              <Minimize2 className="w-4 h-4 text-gray-700" />
-            </button>
+          {p.status === "loading" && (
+            <p role="status" className="col-span-full text-sm text-book-muted">
+              Loading…
+            </p>
           )}
-        </div>
-      </div>
-    </div>
+          {p.status === "error" && (
+            <p role="alert" className="col-span-full flex flex-wrap items-center gap-x-3 gap-y-1 text-sm font-medium text-book-accent">
+              Couldn’t load the audio.{" "}
+              <button
+                type="button"
+                onClick={p.play}
+                className={`inline-flex min-h-11 items-center rounded-full border border-book-accent bg-book-page px-4 font-medium text-book-accent transition-colors duration-200 hover:bg-book-accent hover:text-book-page ${FOCUS} motion-reduce:transition-none`}
+              >
+                Try again
+              </button>
+            </p>
+          )}
+        </>
+      ) : (
+        <p className="inline-flex items-center gap-1.5 text-sm text-book-muted">
+          <Headphones aria-hidden="true" className="size-4" /> Best with headphones
+        </p>
+      )}
+    </section>
   );
 }

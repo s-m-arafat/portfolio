@@ -1,9 +1,31 @@
-import React from "react";
+import { site } from "@/lib/site";
+
+const link =
+  "inline-flex min-h-6 items-center text-sm text-muted underline-offset-4 transition-colors duration-150 hover:text-accent hover:underline";
 
 export default function Footer() {
   return (
-    <div className="dark:text-white/50 h-20 w-full bg-teal-200/10 dark:bg-blueGray-dark p-2 text-center border-t border-teal-900/10 dark:border-teal-500/20">
-      &#169; 2025 All Rights Reserved <br /> Designed and Developed by Arafat ⚡
-    </div>
+    <footer className="border-t border-line bg-surface pt-8 pb-[calc(7rem+env(safe-area-inset-bottom))]">
+      <div className="container flex flex-wrap items-center justify-between gap-x-6 gap-y-3">
+        <p className="text-sm text-muted">
+          © {new Date().getFullYear()} {site.name}
+        </p>
+        <ul className="flex flex-wrap items-center gap-x-5 gap-y-2">
+          {site.socials.map(({ label, href }) => (
+            <li key={label}>
+              <a href={href} target="_blank" rel="noopener noreferrer" className={link}>
+                {label}
+                <span className="sr-only"> (opens in new tab)</span>
+              </a>
+            </li>
+          ))}
+          <li>
+            <a href={`mailto:${site.email}`} className={link}>
+              Email
+            </a>
+          </li>
+        </ul>
+      </div>
+    </footer>
   );
 }

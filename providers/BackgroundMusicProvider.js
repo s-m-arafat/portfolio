@@ -1,117 +1,54 @@
-'use client';
+"use client";
 
-import React, { createContext, useContext, useState, useEffect, useRef } from 'react';
+import { createContext, useCallback, useContext, useMemo, useRef, useState } from "react";
 
-const BackgroundMusicContext = createContext();
+const SRC = "/assets/stories/audio/background-music.mp3";
+const BackgroundMusicContext = createContext(null);
 
 export function BackgroundMusicProvider({ children }) {
-  const [isPlaying, setIsPlaying] = useState(false);
-  const [isLoaded, setIsLoaded] = useState(false);
-  const [volume, setVolume] = useState(0.3);
   const audioRef = useRef(null);
-  const autoPlayAttempted = useRef(false);
+  const playingRef = useRef(false);
+  const duckedRef = useRef(false);
+  const [playing, setPlaying] = useState(false);
 
-  // Load user preference from localStorage
-  useEffect(() => {
-    const savedPreference = localStorage.getItem('bgm-enabled');
-    if (savedPreference !== null) {
-      setIsPlaying(savedPreference === 'true');
-    }
+  const setOn = useCallback((on) => {
+    playingRef.current = on;
+    setPlaying(on);
   }, []);
 
-  // Initialize audio element
-  useEffect(() => {
-    if (typeof window !== 'undefined' && !audioRef.current) {
-      // Create audio element
-      const audio = new Audio();
-      audio.loop = true;
-      audio.volume = volume;
-      
-      // Try to load the background music
-      audio.src = '/assets/stories/audio/background-music.mp3';
-      
-      // Handle loading errors gracefully
-      audio.addEventListener('error', () => {
-        console.warn('Background music file not found. Add background-music.mp3 to enable this feature.');
-      });
-      
-      audioRef.current = audio;
-      setIsLoaded(true);
-    }
-  }, [volume]);
-
-  // Handle play/pause based on state
-  useEffect(() => {
-    if (!audioRef.current || !isLoaded) return;
-
-    const audio = audioRef.current;
-
-    if (isPlaying) {
-      const playPromise = audio.play();
-      if (playPromise !== undefined) {
-        playPromise.catch((error) => {
-          // Only log once for auto-play prevention
-          if (!autoPlayAttempted.current) {
-            console.log('💡 Background music ready. Click the music button to play.');
-            autoPlayAttempted.current = true;
-          }
-          // Turn off the playing state since auto-play failed
-          setIsPlaying(false);
-          localStorage.setItem('bgm-enabled', 'false');
-        });
-      }
-    } else {
-      audio.pause();
-    }
-  }, [isPlaying, isLoaded]);
-
-  const toggle = () => {
-    setIsPlaying((prev) => {
-      const newState = !prev;
-      localStorage.setItem('bgm-enabled', String(newState));
-      return newState;
+  const start = useCallback(() => {
+    // Created on first use so visitors who never press play don't download the track.
+    audioRef.current ??= Object.assign(new Audio(SRC), { loop: true, volume: 0.3 });
+    audioRef.current.play().catch((err) => {
+      if (err.name === "AbortError") return; // our own pause() (duck/toggle) interrupted a pending play()
+      console.warn("Background music could not start:", err.message);
+      setOn(false);
     });
-  };
+  }, [setOn]);
 
-  const pause = () => {
-    if (audioRef.current && isPlaying) {
-      audioRef.current.pause();
-    }
-  };
+  const toggle = useCallback(() => {
+    const on = !playingRef.current;
+    setOn(on);
+    if (!on) audioRef.current?.pause();
+    else if (!duckedRef.current) start();
+  }, [setOn, start]);
 
-  const resume = () => {
-    if (audioRef.current && isPlaying) {
-      audioRef.current.play().catch(console.warn);
-    }
-  };
+  const duck = useCallback(() => {
+    duckedRef.current = true;
+    audioRef.current?.pause();
+  }, []);
 
-  const changeVolume = (newVolume) => {
-    setVolume(newVolume);
-    if (audioRef.current) {
-      audioRef.current.volume = newVolume;
-    }
-  };
+  const unduck = useCallback(() => {
+    duckedRef.current = false;
+    if (playingRef.current) start();
+  }, [start]);
 
-  return (
-    <BackgroundMusicContext.Provider
-      value={{
-        isPlaying,
-        toggle,
-        pause,
-        resume,
-        volume,
-        changeVolume,
-      }}
-    >
-      {children}
-    </BackgroundMusicContext.Provider>
-  );
+  const value = useMemo(() => ({ playing, toggle, duck, unduck }), [playing, toggle, duck, unduck]);
+  return <BackgroundMusicContext.Provider value={value}>{children}</BackgroundMusicContext.Provider>;
 }
 
 export function useBackgroundMusic() {
-  const context = useContext(BackgroundMusicContext);
-  if (context === undefined) {
-    throw new Error('useBackgroundMusic must be used within BackgroundMusicProvider');
-  }
-  return context;
+  const ctx = useContext(BackgroundMusicContext);
+  if (!ctx) throw new Error("useBackgroundMusic must be used inside BackgroundMusicProvider");
+  return ctx;
 }
